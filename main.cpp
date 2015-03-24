@@ -44,7 +44,7 @@ __TEST_U(SampleUnitTest2, test4) {
 
 int main()
 {
-    Framework framework;
-    framework.runTests();
+    Framework* framework = Framework::getInstance();
+    framework->runTests();
     return 0;
 }

@@ -3,7 +3,7 @@
 
 #include <map>
 #include <string>
-#include "test_cases.h"
+#include "framework.h"
 
 namespace ztest {
 
@@ -31,17 +31,14 @@ public:
 #define __TEST_U(suite, name) \
 class __TEST_CLASS_##suite##_##name##_ : public suite { \
 public: \
-    void run() { \
-        this->setUpEach(); \
-        this->test(); \
-        this->tearDownEach(); \
-    } \
     virtual void test() override final; \
     static int addToTestCases() { \
-        suite *testSuite = new suite(); \
-        __TEST_CLASS_##suite##_##name##_ *testCase = new __TEST_CLASS_##suite##_##name##_(); \
-        GlobalTestCases* testCases = GlobalTestCases::getInstance(); \
-        testCases->addTestCase(""#suite"", testSuite, ""#name"", testCase); \
+        TestCaseSpecialize< __TEST_CLASS_##suite##_##name##_ >* testCase; \
+        testCase = new TestCaseSpecialize< __TEST_CLASS_##suite##_##name##_ >(); \
+        TestSuiteSpecialize< suite >* testSuite;\
+        testSuite = new TestSuiteSpecialize< suite >(); \
+        Framework::getInstance()->addTestSuite(""#suite"", testSuite); \
+        Framework::getInstance()->addTestCase(""#suite"", ""#name"", testCase); \
         return 0; \
     } \
 }; \
