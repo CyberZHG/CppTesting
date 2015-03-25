@@ -181,6 +181,67 @@ int strcasecmp(const char* a, const char* b);
     __TEST_BASE_("", false, "", "", false) \
 }
 
+#define __TEST_THROW_(statement, exception_type, fatal) { \
+    bool caught = false; \
+    bool gotException = false; \
+    try { \
+        (statement); \
+    } catch (exception_type e) { \
+        caught = true; \
+    } catch (...) { \
+        gotException = true; \
+    } \
+    if (!caught) { \
+        if (gotException) { \
+            __TEST_BASE_(#statement, false, #exception_type, "Unknown Exception", fatal) \
+        } else { \
+            __TEST_BASE_(#statement, false, #exception_type, "No Exception", fatal) \
+        } \
+    } \
+}
+
+#define __EXPECT_THROW(statement, exception_type) \
+    __TEST_THROW_(statement, exception_type, false)
+
+#define __ASSERT_THROW(statement, exception_type) \
+    __TEST_THROW_(statement, exception_type, true)
+
+#define __TEST_ANY_THROW_(statement, fatal) { \
+    bool caught = false; \
+    try { \
+        (statement); \
+    } catch (...) { \
+        caught = true; \
+    } \
+    if (!caught) { \
+        __TEST_BASE_(#statement, false, "Any Throw", "No Throw", fatal) \
+    } \
+}
+
+#define __EXPECT_ANY_THROW(statement) \
+    __TEST_ANY_THROW_(statement, false)
+
+#define __ASSERT_ANY_THROW(statement) \
+    __TEST_ANY_THROW_(statement, true)
+
+#define __TEST_NO_THROW_(statement, fatal) { \
+    bool caught = false; \
+    try { \
+        (statement); \
+    } catch (...) { \
+        caught = true; \
+    } \
+    if (caught) { \
+        __TEST_BASE_(#statement, false, "No Throw", "Unknown Throw", fatal) \
+    } \
+}
+
+#define __EXPECT_NO_THROW(statement) \
+    __TEST_NO_THROW_(statement, false)
+
+#define __ASSERT_NO_THROW(statement) \
+    __TEST_NO_THROW_(statement, true)
+
 }
 
 #endif // ASSERTS_H_INCLUDED

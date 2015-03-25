@@ -9,21 +9,36 @@ public:
     virtual void tearDown() override final {}
 protected:
     int inClassValue;
+    void normalFunc() {}
+    void exptFunc() {throw inClassValue;}
 };
 
 __TEST_U(ExampleUnitTest, test1) {
-    __SUCCESS();
-    __ASSERT_EQ(this->inClassValue, 1 + 2);
+    __ASSERT_THROW(normalFunc(), int);
 }
 
 __TEST_U(ExampleUnitTest, test2) {
-    __FAIL();
-    __SUCCESS();
+    __ASSERT_THROW(exptFunc(), int);
 }
 
 __TEST_U(ExampleUnitTest, test3) {
-    __ADD_FAIL();
-    __ADD_FAIL();
+    __ASSERT_THROW(exptFunc(), char);
+}
+
+__TEST_U(ExampleUnitTest, test4) {
+    __ASSERT_ANY_THROW(normalFunc());
+}
+
+__TEST_U(ExampleUnitTest, test5) {
+    __ASSERT_ANY_THROW(exptFunc());
+}
+
+__TEST_U(ExampleUnitTest, test6) {
+    __ASSERT_NO_THROW(normalFunc());
+}
+
+__TEST_U(ExampleUnitTest, test7) {
+    __ASSERT_NO_THROW(exptFunc());
 }
 
 int main()

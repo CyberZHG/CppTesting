@@ -115,3 +115,14 @@ __FAIL()
 // Fail and go on.
 __ADD_FAIL()
 ```
+
+### Throw
+
+```cpp
+// The statement should throw exception with exceptionType.
+__EXPECT_THROW(statement, exceptionType) __ASSERT_THROW(statement, exceptionType)
+// The statement should throw any exception.
+__EXPECT_ANY_THROW(statement) __ASSERT_ANY_THROW(statement)
+// The statement should not throw exception.
+__EXPECT_NO_THROW(statement) __ASSERT_NO_THROW(statement)
+```
