@@ -7,20 +7,16 @@ class SampleUnitTest1 : public UnitTest {
 };
 
 __TEST_U(SampleUnitTest1, test1) {
-    __ASSERT_TRUE(1 == 0);
-    __ASSERT_TRUE(1 == 1);
+    __ASSERT_EQ(true, false);
 }
 __TEST_U(SampleUnitTest1, test2) {
-    __ASSERT_FALSE(1 == 0);
-    __ASSERT_FALSE(1 == 1);
+    __ASSERT_EQ(1, 2);
 }
 __TEST_U(SampleUnitTest1, test3) {
-    __EXPECT_TRUE(1 == 0);
-    __EXPECT_TRUE(1 == 0);
+    __ASSERT_EQ("hello", "world");
 }
 __TEST_U(SampleUnitTest1, test4) {
-    __EXPECT_FALSE(1 == 1);
-    __EXPECT_FALSE(1 == 1);
+    __ASSERT_EQ(1.23, 4);
 }
 
 class SampleUnitTest2 : public UnitTest {
