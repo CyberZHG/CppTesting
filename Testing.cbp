@@ -35,7 +35,13 @@
 			<Add option="-fexceptions" />
 			<Add directory="include" />
 		</Compiler>
+		<Unit filename="include/asserts.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/framework.h" />
+		<Unit filename="include/printer.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/stream_color.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -45,6 +51,7 @@
 		<Unit filename="include/ztest.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/framework.cpp" />
+		<Unit filename="src/printer.cpp" />
 		<Unit filename="src/stream_color.cpp" />
 		<Unit filename="src/unit_test.cpp" />
 		<Extensions>
