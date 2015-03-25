@@ -7,6 +7,8 @@
 
 #define __TEST_BASE_(actualText, result, expectValue, actualValue, fatal) \
 if (!result) { \
+    Framework* framework = Framework::getInstance(); \
+    framework->setFailedFlag(); \
     printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
     if (fatal) { \
         return; \

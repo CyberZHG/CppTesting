@@ -20,10 +20,16 @@ public:
 
     void runTests();
 
+    void setFailedFlag();
+    void resetFailedFlag();
+    bool isTestFailed() const;
+
 private:
     static Framework* instance;
     Framework();
     std::map<std::string, TestSuite*> testSuites;
+
+    bool failedFlag;
 };
 
 }
