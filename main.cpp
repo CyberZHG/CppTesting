@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ztest.h"
+#include "stream_color.h"
 using namespace std;
 using namespace ztest;
 
@@ -7,27 +8,27 @@ class SampleUnitTest1 : public UnitTest {
 };
 
 __TEST_U(SampleUnitTest1, test1) {
-    cout << "Hello" << endl;
+    cout << yellow << "Hello" << white << endl;
 }
 __TEST_U(SampleUnitTest1, test2) {
-    cout << "World" << endl;
+    cout << magenta << "World" << white << endl;
 }
 
 class SampleUnitTest2 : public UnitTest {
 public:
     virtual void setUp() {
         global = "Hello";
-        cout << "Global Set Up" << endl;
+        cout << blue << "Global Set Up" << white << endl;
     }
     virtual void setUpEach() {
         local = "world";
-        cout << "Local Set Up" << endl;
+        cout << magenta << "Local Set Up" << white << endl;
     }
     virtual void tearDown() {
-        cout << "Global Tear Down" << endl;
+        cout << blue << "Global Tear Down" << white << endl;
     }
     virtual void tearDownEach() {
-        cout << "Local Tear Down" << endl;
+        cout << magenta << "Local Tear Down" << white << endl;
     }
 protected:
     string global;
@@ -35,11 +36,11 @@ protected:
 };
 
 __TEST_U(SampleUnitTest2, test3) {
-    cout << global << " " << local << endl;
+    cout << red << global << white << " " << local << endl;
 }
 
 __TEST_U(SampleUnitTest2, test4) {
-    cout << global << " " << local << endl;
+    cout << global << " " << green << local << white << endl;
 }
 
 int main()

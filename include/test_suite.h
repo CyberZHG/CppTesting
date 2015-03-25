@@ -39,16 +39,25 @@ public:
 
     virtual void runTests() override final {
         UnitTestClass base;
-        base.setUp();
+        try {
+            base.setUp();
+        } catch (...) {
+        }
         for (auto testCase : testCases) {
             std::cout << "    " << testCase.first << std::endl;
             UnitTest* test = testCase.second->newTest();
             *(UnitTestClass*)test = base;
-            test->setUpEach();
-            test->test();
-            test->tearDownEach();
+            try {
+                test->setUpEach();
+                test->test();
+                test->tearDownEach();
+            } catch (...) {
+            }
         }
-        base.tearDown();
+        try {
+            base.tearDown();
+        } catch (...) {
+        }
     }
 };
 
