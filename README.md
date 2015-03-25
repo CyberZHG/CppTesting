@@ -89,3 +89,19 @@ __EXPECT_GE(expect, actual) __ASSERT_GE(expect, actual)
 ```
 
 **Note that** since you are comparing two objects, the corresponding arithmetic operators should have been overloaded. And since the value of the object will be printed if the test fails, `ostream` should also be overloaded.
+
+### String in C
+
+```cpp
+// (Case-sensitive) Equal to
+__EXPECT_STREQ(expect, actual) __ASSERT_STREQ(expect, actual)
+// (Case-sensitive) Not equal to
+__EXPECT_STRNE(expect, actual) __ASSERT_STRNE(expect, actual)
+// (Case-insensitive) Equal to
+__EXPECT_STRCASEEQ(expect, actual) __ASSERT_STRCASEEQ(expect, actual)
+// (Case-insensitive) Not equal to
+__EXPECT_STRCASENE(expect, actual) __ASSERT_STRCASENE(expect, actual)
+```
+
+These macros are used to compare C strings like `__EXPECT_STRCASEEQ("WORLD", "world")`.
+

@@ -50,6 +50,7 @@
 		<Unit filename="include/unit_test.h" />
 		<Unit filename="include/ztest.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/asserts.cpp" />
 		<Unit filename="src/framework.cpp" />
 		<Unit filename="src/printer.cpp" />
 		<Unit filename="src/stream_color.cpp" />
