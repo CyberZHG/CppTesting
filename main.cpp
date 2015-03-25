@@ -17,7 +17,7 @@ protected:
 
 __TEST_U(ExampleUnitTest, test1) {
     __ASSERT_PRED_FORMAT1(func1, 1);
-    ztest::StaticAssertTypeEq<int, bool>();
+    ztest::StaticAssertTypeEq<bool, bool>();
 }
 
 int main()

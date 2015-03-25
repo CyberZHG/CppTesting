@@ -8,7 +8,7 @@ This is a C++ testing framework which imitates gtest's interface since gtest is 
 
 ### Fundamental
 
-A __test suite__ contains many __test cases__ of the same purpose. You can not create a __test case__ without creating a __test suite__. To create a test suite, just inherit `UnitTest` class, the name of the inherited class is the name of the test suite.
+A __test suite__ contains many __test cases__ of the same purpose. You can not create a __test case__ without creating a __test suite__. To create a test suite, just inherit `UnitTest` class, the name of the inherited class is the name of the test suite. The test cases in the same test suite will not influence each other.
 
 Example:
 ```cpp
@@ -26,7 +26,7 @@ protected:
 };
 ```
 
-In this example, `ExampleUnitTest` is the name of the test suite. There are four virtual function could be optionally implemented. `setUp()` and `tearDown()` will be invoked before and after running tests in the test suite separately, while `setUpEach()` and `tearDownEach()` will be called each time a single test case being tested.
+In this example, `ExampleUnitTest` is the name of the test suite. There are four virtual function could be optionally implemented. `setUp()` and `tearDown()` will be invoked before and after running tests in the test suite respectively, while `setUpEach()` and `tearDownEach()` will be called each time a single test case being tested.
 
 **Note that** the variables you want to use in the test cases should be public or protected. If you insist on using private variables, please create getter/setter functions for them.
 
@@ -41,7 +41,7 @@ __TEST_U(ExampleUnitTest, test2) {
 }
 ```
 
-The first parameter of `__TEST_U` is the name of the test suite, the second parameter is the name of the test case. The combination of suite name and case name should be identical.
+The first parameter of `__TEST_U` is the name of the test suite, the second parameter is the name of the test case. The combination of suite name and case name should be unique.
 
 After the definition of the test suites and test cases, we can run our tests:
 

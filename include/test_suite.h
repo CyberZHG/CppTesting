@@ -15,7 +15,11 @@ class UnitTest;
 class TestSuite {
 public:
     TestSuite() {}
-    virtual ~TestSuite() {}
+    virtual ~TestSuite() {
+        for (auto testCase : this->testCases) {
+            delete testCase.second;
+        }
+    }
 
     void addTest(std::string testName, TestCase *testCase) {
         testCases[testName] = testCase;
@@ -41,12 +45,6 @@ class TestSuiteSpecialize : public TestSuite {
 public:
     TestSuiteSpecialize() {}
 
-    virtual ~TestSuiteSpecialize() {
-        for (auto testCase : this->testCases) {
-            delete testCase.second;
-        }
-    }
-
     virtual void runTests() override final {
         UnitTestClass base;
         try {
@@ -57,7 +55,7 @@ public:
         Framework* framework = Framework::getInstance();
         for (auto testCase : testCases) {
             UnitTest* test = testCase.second->newTest();
-            *(UnitTestClass*)test = base;
+            *dynamic_cast<UnitTestClass*>(test) = base;
             framework->resetFailedFlag();
             try {
                 test->setUpEach();
@@ -65,6 +63,7 @@ public:
                 test->tearDownEach();
             } catch (...) {
             }
+            delete test;
             if (framework->isTestFailed()) {
                 std::cout << red << "[ FAILED ] " << white;
             } else {
