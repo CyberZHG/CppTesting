@@ -67,25 +67,36 @@ As shown above, there are some macros named like `__EXPECT_*` or `__ASSERT_*`. T
 ### Boolean
 
 ```cpp
-__EXPECT_TRUE(actual) __ASSERT_TRUE(actual)
-__EXPECT_FALSE(actual) __ASSERT_FALSE(actual)
+__EXPECT_TRUE(actual) 
+__ASSERT_TRUE(actual)
+__EXPECT_FALSE(actual) 
+__ASSERT_FALSE(actual)
 ```
 
 ### Arithmetic
 
 ```cpp
 // Equal to...
-__EXPECT_EQ(expect, actual) __ASSERT_EQ(expect, actual)
+__EXPECT_EQ(expect, actual) 
+__ASSERT_EQ(expect, actual)
 // Not equal to...
-__EXPECT_NQ(expect, actual) __ASSERT_NQ(expect, actual)
+__EXPECT_NQ(expect, actual) 
+__ASSERT_NQ(expect, actual)
 // Less than...
-__EXPECT_LT(expect, actual) __ASSERT_LT(expect, actual)
+__EXPECT_LT(expect, actual) 
+__ASSERT_LT(expect, actual)
 // Less than or equal to...
-__EXPECT_LE(expect, actual) __ASSERT_LE(expect, actual)
+__EXPECT_LE(expect, actual) 
+__ASSERT_LE(expect, actual)
 // Greater than...
-__EXPECT_GT(expect, actual) __ASSERT_GT(expect, actual)
+__EXPECT_GT(expect, actual) 
+__ASSERT_GT(expect, actual)
 // Greater than or equal to...
-__EXPECT_GE(expect, actual) __ASSERT_GE(expect, actual)
+__EXPECT_GE(expect, actual) 
+__ASSERT_GE(expect, actual)
+// The difference of the two values does not exceed the given absolute error.
+__EXPECT_NEAR(expect, actual, absError) 
+__ASSERT_NEAR(expect, actual, absError)
 ```
 
 **Note that** since you are comparing two objects, the corresponding arithmetic operators should have been overloaded. And since the value of the object will be printed if the test fails, `ostream` should also be overloaded.
@@ -94,13 +105,17 @@ __EXPECT_GE(expect, actual) __ASSERT_GE(expect, actual)
 
 ```cpp
 // (Case-sensitive) Equal to
-__EXPECT_STREQ(expect, actual) __ASSERT_STREQ(expect, actual)
+__EXPECT_STREQ(expect, actual) 
+__ASSERT_STREQ(expect, actual)
 // (Case-sensitive) Not equal to
-__EXPECT_STRNE(expect, actual) __ASSERT_STRNE(expect, actual)
+__EXPECT_STRNE(expect, actual) 
+__ASSERT_STRNE(expect, actual)
 // (Case-insensitive) Equal to
-__EXPECT_STRCASEEQ(expect, actual) __ASSERT_STRCASEEQ(expect, actual)
+__EXPECT_STRCASEEQ(expect, actual) 
+__ASSERT_STRCASEEQ(expect, actual)
 // (Case-insensitive) Not equal to
-__EXPECT_STRCASENE(expect, actual) __ASSERT_STRCASENE(expect, actual)
+__EXPECT_STRCASENE(expect, actual) 
+__ASSERT_STRCASENE(expect, actual)
 ```
 
 These macros are used to compare C strings like `__EXPECT_STRCASEEQ("WORLD", "world")`.
@@ -120,9 +135,30 @@ __ADD_FAIL()
 
 ```cpp
 // The statement should throw exception with exceptionType.
-__EXPECT_THROW(statement, exceptionType) __ASSERT_THROW(statement, exceptionType)
+__EXPECT_THROW(statement, exceptionType) 
+__ASSERT_THROW(statement, exceptionType)
 // The statement should throw any exception.
-__EXPECT_ANY_THROW(statement) __ASSERT_ANY_THROW(statement)
+__EXPECT_ANY_THROW(statement) 
+__ASSERT_ANY_THROW(statement)
 // The statement should not throw exception.
-__EXPECT_NO_THROW(statement) __ASSERT_NO_THROW(statement)
+__EXPECT_NO_THROW(statement) 
+__ASSERT_NO_THROW(statement)
 ```
+
+### Predicate
+
+```cpp
+__EXPECT_PRED_FORMAT1(func, val1)
+__ASSERT_PRED_FORMAT1(func, val1)
+
+__EXPECT_PRED_FORMAT2(func, val1, val2)
+__ASSERT_PRED_FORMAT2(func, val1, val2)
+
+__EXPECT_PRED_FORMAT3(func, val1, val2, val3)
+__ASSERT_PRED_FORMAT3(func, val1, val2, val3)
+
+...
+```
+
+These macros take a function name and some parameter values as parameters. For example, `__ASSERT_PRED_FORMAT2` will test whether `func(val1, val2)` is true. If the result is not true, the corresponding parameter names and parameter values will be printed. The `func` takes at most 5 parameters.
+

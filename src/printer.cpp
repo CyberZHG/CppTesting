@@ -11,3 +11,12 @@ void ztest::printBaseFailed(string fileName, int lineNum, string expression, str
         cout << "    " << "Actual: " << actual.substr(0, MAX_LINE_WIDTH - 13) << endl;
     }
 }
+
+void ztest::printPredFailed(string fileName, int lineNum, string expression,
+                            vector<string> parameterNames,
+                            vector<string> parameterValus) {
+    cout << fileName << "(" << lineNum << "): "  << expression << endl;
+    for (size_t i = 0; i < parameterNames.size(); ++i) {
+        cout << "    " << parameterNames[i] << " => " << parameterValus[i] << endl;
+    }
+}
