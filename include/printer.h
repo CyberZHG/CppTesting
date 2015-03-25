@@ -3,6 +3,10 @@
 
 #include <string>
 
+namespace ztest {
+
 void printBaseFailed(std::string fileName, int lineNum, std::string expression, std::string expected, std::string actual);
+
+};
 
 #endif // PRINTER_H_INCLUDED

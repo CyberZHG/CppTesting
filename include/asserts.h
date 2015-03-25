@@ -9,7 +9,7 @@
 if (!result) { \
     Framework* framework = Framework::getInstance(); \
     framework->setFailedFlag(); \
-    printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
+    ztest::printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
     if (fatal) { \
         return; \
     } \
