@@ -105,3 +105,13 @@ __EXPECT_STRCASENE(expect, actual) __ASSERT_STRCASENE(expect, actual)
 
 These macros are used to compare C strings like `__EXPECT_STRCASEEQ("WORLD", "world")`.
 
+### Sucess and Fail
+
+```cpp
+// Immediately success.
+__SUCCESS()
+// Immediately fail.
+__FAIL()
+// Fail and go on.
+__ADD_FAIL()
+```

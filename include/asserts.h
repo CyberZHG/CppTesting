@@ -10,13 +10,14 @@ namespace ztest {
 
 int strcasecmp(const char* a, const char* b);
 
-#define __TEST_BASE_(actualText, result, expectValue, actualValue, fatal) \
-if (!result) { \
-    Framework* framework = Framework::getInstance(); \
-    framework->setFailedFlag(); \
-    ztest::printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
-    if (fatal) { \
-        return; \
+#define __TEST_BASE_(actualText, result, expectValue, actualValue, fatal) { \
+    if (!result) { \
+        Framework* framework = Framework::getInstance(); \
+        framework->setFailedFlag(); \
+        ztest::printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
+        if (fatal) { \
+            return; \
+        } \
     } \
 }
 
@@ -167,6 +168,18 @@ if (!result) { \
 
 #define __ASSERT_STRCASENE(expect, actual) \
     __TEST_STRCASEEQ_(expect, actual, true)
+
+#define __SUCCESS() { \
+    return; \
+}
+
+#define __FAIL() { \
+    __TEST_BASE_("", false, "", "", true) \
+}
+
+#define __ADD_FAIL() { \
+    __TEST_BASE_("", false, "", "", false) \
+}
 
 }
 
