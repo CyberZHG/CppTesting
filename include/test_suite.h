@@ -7,6 +7,7 @@
 #include "stream_color.h"
 #include "unit_test.h"
 #include "framework.h"
+#include "exceptions.h"
 
 namespace ztest {
 
@@ -49,6 +50,7 @@ public:
         UnitTestClass base;
         try {
             base.setUp();
+        } catch (AssertException e) {
         } catch (...) {
         }
         testPassedNum = 0;
@@ -61,6 +63,7 @@ public:
                 test->setUpEach();
                 test->test();
                 test->tearDownEach();
+            } catch (AssertException e) {
             } catch (...) {
             }
             delete test;
@@ -74,6 +77,7 @@ public:
         }
         try {
             base.tearDown();
+        } catch (AssertException e) {
         } catch (...) {
         }
     }

@@ -8,6 +8,9 @@ public:
     virtual void tearDownEach() override final {}
     virtual void tearDown() override final {}
 protected:
+    void func() {
+        __ASSERT_PRED_FORMAT1(func1, 3);
+    }
     bool func1(int x) {return x == 1;}
     bool func2(int x, int y) {return x == 1;}
     bool func3(int x, int y, int z) {return x == 1;}
@@ -16,8 +19,8 @@ protected:
 };
 
 __TEST_U(ExampleUnitTest, test1) {
-    __ASSERT_PRED_FORMAT1(func1, 1);
-    ztest::StaticAssertTypeEq<bool, bool>();
+    func();
+    __ASSERT_PRED_FORMAT1(func1, 2);
 }
 
 int main()

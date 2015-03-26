@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "exceptions.h"
 #include "printer.h"
 
 namespace ztest {
@@ -18,7 +19,7 @@ int strcasecmp(const char* a, const char* b);
         framework->setFailedFlag(); \
         ztest::printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
         if (fatal) { \
-            return; \
+            throw AssertException(); \
         } \
     } \
 }
@@ -276,7 +277,7 @@ int strcasecmp(const char* a, const char* b);
         ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1")", \
                                parameterNames, parameterValues); \
         if (fatal) { \
-            return; \
+            throw AssertException(); \
         } \
     } \
 }
@@ -301,7 +302,7 @@ int strcasecmp(const char* a, const char* b);
         ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2")", \
                                parameterNames, parameterValues); \
         if (fatal) { \
-            return; \
+            throw AssertException(); \
         } \
     } \
 }
@@ -328,7 +329,7 @@ int strcasecmp(const char* a, const char* b);
         ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3")", \
                                parameterNames, parameterValues); \
         if (fatal) { \
-            return; \
+            throw AssertException(); \
         } \
     } \
 }
@@ -357,7 +358,7 @@ int strcasecmp(const char* a, const char* b);
         ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4")", \
                                parameterNames, parameterValues); \
         if (fatal) { \
-            return; \
+            throw AssertException(); \
         } \
     } \
 }
@@ -388,7 +389,7 @@ int strcasecmp(const char* a, const char* b);
         ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4", "#val5")", \
                                parameterNames, parameterValues); \
         if (fatal) { \
-            return; \
+            throw AssertException(); \
         } \
     } \
 }

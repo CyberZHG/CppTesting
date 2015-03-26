@@ -38,6 +38,9 @@
 		<Unit filename="include/asserts.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/exceptions.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/framework.h" />
 		<Unit filename="include/printer.h">
 			<Option target="&lt;{~None~}&gt;" />
