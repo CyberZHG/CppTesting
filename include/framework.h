@@ -3,11 +3,14 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 namespace ztest {
 
 class TestCase;
 class TestSuite;
+class Result;
+class ResultList;
 
 class Framework
 {
@@ -19,6 +22,12 @@ public:
     void addTestCase(std::string suiteName, std::string caseName, TestCase* testCase);
 
     void runTests();
+    void appendResult(std::shared_ptr<Result> result);
+
+    void print();
+    void printToHtml(std::string filePath);
+
+    void finish();
 
     void setFailedFlag();
     void resetFailedFlag();
@@ -28,6 +37,7 @@ private:
     static Framework* instance;
     Framework();
     std::map<std::string, TestSuite*> testSuites;
+    ResultList* resultList;
 
     bool failedFlag;
 };

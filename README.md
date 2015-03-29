@@ -50,6 +50,8 @@ int main()
 {
     Framework* framework = Framework::getInstance();
     framework->runTests();
+    framework->print();
+    framework->finish();
     return 0;
 }
 ```

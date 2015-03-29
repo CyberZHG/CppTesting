@@ -6,8 +6,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <memory>
+#include "results.h"
 #include "exceptions.h"
-#include "printer.h"
 
 namespace ztest {
 
@@ -17,7 +18,7 @@ int strcasecmp(const char* a, const char* b);
     if (!result) { \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        ztest::printBaseFailed(__FILE__, __LINE__, actualText, expectValue, actualValue); \
+        framework->appendResult(std::shared_ptr<Result>(new ResultTestFailed(__FILE__, __LINE__, actualText, expectValue, actualValue))); \
         if (fatal) { \
             throw AssertException(); \
         } \
@@ -259,23 +260,20 @@ int strcasecmp(const char* a, const char* b);
     __TEST_NO_THROW_(statement, true)
 
 #define __TEST_PRED_FORMAT_ADD_VALUE_(parameterName, parameterValue) \
-    parameterNames.push_back(parameterName); \
     out.str(""); \
     out.clear(); \
     out << parameterValue; \
-    parameterValues.push_back(out.str());
+    std::static_pointer_cast<ResultTestFailedVariables>(result)->addParameter(parameterName, out.str());
 
 #define __TEST_PRED_FORMAT1_(func, val1, fatal) { \
     auto val1Val = (val1); \
     if (!(func(val1Val))) { \
-        std::vector<std::string> parameterNames; \
-        std::vector<std::string> parameterValues; \
         std::ostringstream out; \
-        __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1")", \
-                               parameterNames, parameterValues); \
+        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1")")); \
+        __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
+        framework->appendResult(result); \
         if (fatal) { \
             throw AssertException(); \
         } \
@@ -292,15 +290,13 @@ int strcasecmp(const char* a, const char* b);
     auto val1Val = (val1); \
     auto val2Val = (val2); \
     if (!(func(val1Val, val2Val))) { \
-        std::vector<std::string> parameterNames; \
-        std::vector<std::string> parameterValues; \
         std::ostringstream out; \
-        __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
-        __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2")", \
-                               parameterNames, parameterValues); \
+        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2")")); \
+        __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
+        __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
+        framework->appendResult(result); \
         if (fatal) { \
             throw AssertException(); \
         } \
@@ -318,16 +314,14 @@ int strcasecmp(const char* a, const char* b);
     auto val2Val = (val2); \
     auto val3Val = (val3); \
     if (!(func(val1Val, val2Val, val3Val))) { \
-        std::vector<std::string> parameterNames; \
-        std::vector<std::string> parameterValues; \
         std::ostringstream out; \
+        Framework* framework = Framework::getInstance(); \
+        framework->setFailedFlag(); \
+        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val3, val3Val); \
-        Framework* framework = Framework::getInstance(); \
-        framework->setFailedFlag(); \
-        ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3")", \
-                               parameterNames, parameterValues); \
+        framework->appendResult(result); \
         if (fatal) { \
             throw AssertException(); \
         } \
@@ -346,17 +340,15 @@ int strcasecmp(const char* a, const char* b);
     auto val3Val = (val3); \
     auto val4Val = (val4); \
     if (!(func(val1Val, val2Val, val3Val, val4Val))) { \
-        std::vector<std::string> parameterNames; \
-        std::vector<std::string> parameterValues; \
         std::ostringstream out; \
+        Framework* framework = Framework::getInstance(); \
+        framework->setFailedFlag(); \
+        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val3, val3Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val4, val4Val); \
-        Framework* framework = Framework::getInstance(); \
-        framework->setFailedFlag(); \
-        ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4")", \
-                               parameterNames, parameterValues); \
+        framework->appendResult(result); \
         if (fatal) { \
             throw AssertException(); \
         } \
@@ -376,18 +368,16 @@ int strcasecmp(const char* a, const char* b);
     auto val4Val = (val4); \
     auto val5Val = (val5); \
     if (!(func(val1Val, val2Val, val3Val, val4Val, val5Val))) { \
-        std::vector<std::string> parameterNames; \
-        std::vector<std::string> parameterValues; \
         std::ostringstream out; \
+        Framework* framework = Framework::getInstance(); \
+        framework->setFailedFlag(); \
+        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4", "#val5")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val3, val3Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val4, val4Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val5, val5Val); \
-        Framework* framework = Framework::getInstance(); \
-        framework->setFailedFlag(); \
-        ztest::printPredFailed(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4", "#val5")", \
-                               parameterNames, parameterValues); \
+        framework->appendResult(result); \
         if (fatal) { \
             throw AssertException(); \
         } \

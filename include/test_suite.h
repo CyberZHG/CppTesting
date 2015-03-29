@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <memory>
+#include "results.h"
 #include "stream_color.h"
 #include "unit_test.h"
 #include "framework.h"
@@ -56,6 +58,7 @@ public:
         testPassedNum = 0;
         Framework* framework = Framework::getInstance();
         for (auto testCase : testCases) {
+            framework->appendResult(std::shared_ptr<Result>(new ResultCaseBegin()));
             UnitTest* test = testCase.second->newTest();
             *dynamic_cast<UnitTestClass*>(test) = base;
             framework->resetFailedFlag();
@@ -65,15 +68,13 @@ public:
                 test->tearDownEach();
             } catch (AssertException e) {
             } catch (...) {
+                framework->setFailedFlag();
             }
             delete test;
-            if (framework->isTestFailed()) {
-                std::cout << red << "[ FAILED ] " << white;
-            } else {
+            if (!framework->isTestFailed()) {
                 ++testPassedNum;
-                std::cout << green << "[ PASSED ] " << white;
             }
-            std::cout << testCase.first << std::endl;
+            framework->appendResult(std::shared_ptr<Result>(new ResultCaseEnd(testCase.first, !framework->isTestFailed())));
         }
         try {
             base.tearDown();

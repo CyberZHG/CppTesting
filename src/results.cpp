@@ -15,6 +15,10 @@ void ResultList::append(shared_ptr<Result> result) {
     this->results.push_back(result);
 }
 
+void ResultList::clear() {
+    this->results.clear();
+}
+
 void ResultList::print() const {
     for (auto result : results) {
         result->print();
@@ -27,18 +31,31 @@ void ResultList::printToHtml(ofstream& out) const {
     }
 }
 
-ResultSuiteTitle::ResultSuiteTitle(string title) {
+ResultSuiteBegin::ResultSuiteBegin(string title) {
     this->title = title;
 }
 
-ResultSuiteTitle::~ResultSuiteTitle() {
+ResultSuiteBegin::~ResultSuiteBegin() {
 }
 
-void ResultSuiteTitle::print() const {
+void ResultSuiteBegin::print() const {
     cout << yellow << "[========] " << title << white << endl;
 }
 
-void ResultSuiteTitle::printToHtml(ofstream& out) const {
+void ResultSuiteBegin::printToHtml(ofstream& out) const {
+}
+
+ResultSuiteEnd::ResultSuiteEnd() {
+}
+
+ResultSuiteEnd::~ResultSuiteEnd() {
+}
+
+void ResultSuiteEnd::print() const {
+    cout << endl;
+}
+
+void ResultSuiteEnd::printToHtml(std::ofstream& out) const {
 }
 
 ResultTestFailed::ResultTestFailed(string file, int line, string expression, string expect, string actual) {
@@ -85,15 +102,27 @@ void ResultTestFailedVariables::print() const {
 void ResultTestFailedVariables::printToHtml(ofstream& out) const {
 }
 
-ResultCaseTitle::ResultCaseTitle(string caseName, bool passed) {
+ResultCaseBegin::ResultCaseBegin() {
+}
+
+ResultCaseBegin::~ResultCaseBegin() {
+}
+
+void ResultCaseBegin::print() const {
+}
+
+void ResultCaseBegin::printToHtml(std::ofstream& out) const {
+}
+
+ResultCaseEnd::ResultCaseEnd(string caseName, bool passed) {
     this->caseName = caseName;
     this->passed = passed;
 }
 
-ResultCaseTitle::~ResultCaseTitle() {
+ResultCaseEnd::~ResultCaseEnd() {
 }
 
-void ResultCaseTitle::print() const {
+void ResultCaseEnd::print() const {
     if (this->passed) {
         cout << green << "[ PASSED ] ";
     } else {
@@ -102,7 +131,7 @@ void ResultCaseTitle::print() const {
     cout << white << this->caseName << endl;
 }
 
-void ResultCaseTitle::printToHtml(ofstream& out) const {
+void ResultCaseEnd::printToHtml(ofstream& out) const {
 }
 
 ResultPercentage::ResultPercentage(int passed, int total) {

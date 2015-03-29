@@ -42,9 +42,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/framework.h" />
-		<Unit filename="include/printer.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="include/results.h" />
 		<Unit filename="include/static_asserts.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -58,7 +56,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/asserts.cpp" />
 		<Unit filename="src/framework.cpp" />
-		<Unit filename="src/printer.cpp" />
+		<Unit filename="src/results.cpp" />
 		<Unit filename="src/stream_color.cpp" />
 		<Unit filename="src/unit_test.cpp" />
 		<Extensions>

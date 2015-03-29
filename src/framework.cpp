@@ -1,4 +1,6 @@
+#include <fstream>
 #include <iostream>
+#include "results.h"
 #include "unit_test.h"
 #include "test_case.h"
 #include "test_suite.h"
@@ -16,9 +18,11 @@ Framework* Framework::getInstance() {
 }
 
 Framework::Framework() {
+    this->resultList = new ResultList();
 }
 
 Framework::~Framework() {
+    delete this->resultList;
 }
 
 void Framework::addTestSuite(string suiteName, TestSuite* testSuite) {
@@ -33,36 +37,41 @@ void Framework::addTestCase(string suiteName, string caseName, TestCase* testCas
     testSuites[suiteName]->addTest(caseName, testCase);
 }
 
-void printPercentage(int passed, int total) {
-    if (passed == total) {
-        cout << green << "[= 100% =] " << white << "Passed all test cases." << endl;
-    } else {
-        cout << red << "[= ";
-        int percentage = passed * 100 / total;
-        if (percentage >= 10) {
-            cout << " ";
-        } else {
-            cout << "  ";
-        }
-        cout << percentage << "% =] " << white;
-        cout << passed << " / " << total << " test cases passed. " << endl;
-    }
-}
-
 void Framework::runTests() {
     int totalPassed = 0;
     int totalCount = 0;
+    resultList->clear();
     for (auto suite : testSuites) {
-        cout << yellow << "[========] " << suite.first << white << endl;
+        this->appendResult(shared_ptr<Result>(new ResultSuiteBegin(suite.first)));
         suite.second->runTests();
         int passedNum = suite.second->testPassed();
         int testCount = suite.second->testCount();
         totalPassed += passedNum;
         totalCount += testCount;
-        printPercentage(passedNum, testCount);
-        cout << endl;
+        this->appendResult(shared_ptr<Result>(new ResultPercentage(passedNum, testCount)));
+        this->appendResult(shared_ptr<Result>(new ResultSuiteEnd()));
     }
-    printPercentage(totalPassed, totalCount);
+    this->appendResult(shared_ptr<Result>(new ResultPercentage(totalPassed, totalCount)));
+}
+
+void Framework::appendResult(shared_ptr<Result> result) {
+    this->resultList->append(result);
+}
+
+void Framework::print() {
+    resultList->print();
+}
+
+void Framework::printToHtml(string filePath) {
+    ofstream out;
+    out.open(filePath.c_str());
+    resultList->printToHtml(out);
+    out.close();
+}
+
+void Framework::finish() {
+    delete instance;
+    instance = nullptr;
 }
 
 void Framework::setFailedFlag() {

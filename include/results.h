@@ -19,7 +19,10 @@ class ResultList {
 public:
     ResultList();
     virtual ~ResultList();
+
     void append(std::shared_ptr<Result> result);
+    void clear();
+
     void print() const;
     void printToHtml(std::ofstream& out) const;
 
@@ -27,16 +30,25 @@ private:
     std::vector<std::shared_ptr<Result>> results;
 };
 
-class ResultSuiteTitle : public Result {
+class ResultSuiteBegin : public Result {
 public:
-    ResultSuiteTitle(std::string title);
-    virtual ~ResultSuiteTitle();
+    ResultSuiteBegin(std::string title);
+    virtual ~ResultSuiteBegin();
 
     virtual void print() const override final;
     virtual void printToHtml(std::ofstream& out) const override final;
 
 private:
     std::string title;
+};
+
+class ResultSuiteEnd : public Result {
+public:
+    ResultSuiteEnd();
+    virtual ~ResultSuiteEnd();
+
+    virtual void print() const override final;
+    virtual void printToHtml(std::ofstream& out) const override final;
 };
 
 class ResultTestFailed : public Result {
@@ -72,10 +84,19 @@ private:
     std::vector<std::string> values;
 };
 
-class ResultCaseTitle : public Result {
+class ResultCaseBegin : public Result {
 public:
-    ResultCaseTitle(std::string caseName, bool passed);
-    virtual ~ResultCaseTitle();
+    ResultCaseBegin();
+    virtual ~ResultCaseBegin();
+
+    virtual void print() const override final;
+    virtual void printToHtml(std::ofstream& out) const override final;
+};
+
+class ResultCaseEnd : public Result {
+public:
+    ResultCaseEnd(std::string caseName, bool passed);
+    virtual ~ResultCaseEnd();
 
     virtual void print() const override final;
     virtual void printToHtml(std::ofstream& out) const override final;
