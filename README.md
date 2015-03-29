@@ -164,3 +164,18 @@ __ASSERT_PRED_FORMAT3(func, val1, val2, val3);
 
 These macros take a function name and some parameter values as parameters. For example, `__ASSERT_PRED_FORMAT2` will test whether `func(val1, val2)` is true. If the result is not true, the corresponding parameter names and parameter values will be printed. The `func` takes at most 5 parameters.
 
+## Output
+
+The testing framework supports two output methods currently, which are printing to console using standard output and write the results to an HTML file:
+
+```cpp
+int main()
+{
+    Framework* framework = Framework::getInstance();
+    framework->runTests();
+    framework->printToHtml("results.html");
+    framework->finish();
+    return 0;
+}
+```
+![HTML Result](https://cloud.githubusercontent.com/assets/853842/6884607/7ebd7b3c-d62c-11e4-9f6b-02401cd003a5.png)
