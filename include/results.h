@@ -10,7 +10,7 @@ namespace ztest {
 class Result {
 public:
     Result();
-    ~Result();
+    virtual ~Result();
     virtual void print() const = 0;
     virtual void printToHtml(std::ofstream& out) const = 0;
 };

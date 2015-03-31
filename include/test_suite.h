@@ -17,7 +17,10 @@ class UnitTest;
 
 class TestSuite {
 public:
-    TestSuite() {}
+    TestSuite() :
+        testPassedNum(0), testCases() {
+    }
+
     virtual ~TestSuite() {
         for (auto testCase : this->testCases) {
             delete testCase.second;

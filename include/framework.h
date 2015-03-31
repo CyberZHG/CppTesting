@@ -18,6 +18,9 @@ public:
     static Framework* getInstance();
     virtual ~Framework();
 
+    Framework(const Framework&) = default;
+    Framework& operator=(const Framework&) = default;
+
     void addTestSuite(std::string suiteName, TestSuite* testSuite);
     void addTestCase(std::string suiteName, std::string caseName, TestCase* testCase);
 
