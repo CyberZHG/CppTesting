@@ -17,8 +17,10 @@ Framework* Framework::getInstance() {
     return instance;
 }
 
-Framework::Framework() {
-    this->resultList = new ResultList();
+Framework::Framework() :
+    testSuites(),
+    resultList(new ResultList()),
+    failedFlag(false) {
 }
 
 Framework::~Framework() {
