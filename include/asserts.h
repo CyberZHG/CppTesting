@@ -202,7 +202,7 @@ int strcasecmp(const char* a, const char* b);
     bool caught = false; \
     bool gotException = false; \
     try { \
-        (statement); \
+        statement; \
     } catch (exception_type e) { \
         caught = true; \
     } catch (...) { \
@@ -226,7 +226,7 @@ int strcasecmp(const char* a, const char* b);
 #define __TEST_ANY_THROW_(statement, fatal) { \
     bool caught = false; \
     try { \
-        (statement); \
+        statement; \
     } catch (...) { \
         caught = true; \
     } \
@@ -244,7 +244,7 @@ int strcasecmp(const char* a, const char* b);
 #define __TEST_NO_THROW_(statement, fatal) { \
     bool caught = false; \
     try { \
-        (statement); \
+        statement; \
     } catch (...) { \
         caught = true; \
     } \

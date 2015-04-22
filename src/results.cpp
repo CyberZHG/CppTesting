@@ -7,7 +7,7 @@ Result::Result() {}
 
 Result::~Result() {}
 
-ResultList::ResultList() {}
+ResultList::ResultList() : results() {}
 
 ResultList::~ResultList() {}
 
@@ -52,8 +52,8 @@ void ResultList::printToHtml(ofstream& out) const {
     out << "</html>" << endl;
 }
 
-ResultSuiteBegin::ResultSuiteBegin(string title) {
-    this->title = title;
+ResultSuiteBegin::ResultSuiteBegin(string _title) :
+    title(_title) {
 }
 
 ResultSuiteBegin::~ResultSuiteBegin() {
@@ -84,12 +84,10 @@ void ResultSuiteEnd::printToHtml(std::ofstream& out) const {
     out << "      <tr><td>&nbsp;</td></tr>" << endl;
 }
 
-ResultTestFailed::ResultTestFailed(string file, int line, string expression, string expect, string actual) {
-    this->file = file;
-    this->line = line;
-    this->expression = expression;
-    this->expect = expect;
-    this->actual = actual;
+ResultTestFailed::ResultTestFailed(string _file, int _line, string _expression,
+                                   string _expect, string _actual) :
+    file(_file), line(_line), expression(_expression),
+    expect(_expect), actual(_actual) {
 }
 
 ResultTestFailed::~ResultTestFailed() {
@@ -116,10 +114,10 @@ void ResultTestFailed::printToHtml(ofstream& out) const {
     out << "      </tr>" << endl;
 }
 
-ResultTestFailedVariables::ResultTestFailedVariables(string file, int line, string expression) {
-    this->file = file;
-    this->line = line;
-    this->expression = expression;
+ResultTestFailedVariables::ResultTestFailedVariables(string _file, int _line,
+                                                     string _expression) :
+    file(_file), line(_line), expression(_expression),
+    names(), values() {
 }
 
 ResultTestFailedVariables::~ResultTestFailedVariables() {
@@ -159,12 +157,11 @@ ResultCaseBegin::~ResultCaseBegin() {
 void ResultCaseBegin::print() const {
 }
 
-void ResultCaseBegin::printToHtml(std::ofstream& out) const {
+void ResultCaseBegin::printToHtml(std::ofstream&) const {
 }
 
-ResultCaseEnd::ResultCaseEnd(string caseName, bool passed) {
-    this->caseName = caseName;
-    this->passed = passed;
+ResultCaseEnd::ResultCaseEnd(string _caseName, bool _passed) :
+    caseName(_caseName), passed(_passed) {
 }
 
 ResultCaseEnd::~ResultCaseEnd() {
@@ -191,9 +188,8 @@ void ResultCaseEnd::printToHtml(ofstream& out) const {
     out << "      </tr>" << endl;
 }
 
-ResultPercentage::ResultPercentage(int passed, int total) {
-    this->passed = passed;
-    this->total = total;
+ResultPercentage::ResultPercentage(int _passed, int _total) :
+    passed(_passed), total(_total) {
 }
 
 ResultPercentage::~ResultPercentage() {
@@ -201,7 +197,7 @@ ResultPercentage::~ResultPercentage() {
 
 void ResultPercentage::print() const {
     if (passed == total) {
-        cout << green << "[= 100% =] " << white << "Passed all test cases." << endl;
+        cout << green << "[= 100% =] " << white << "Passed all " << total << " test cases." << endl;
     } else {
         cout << red << "[= ";
         int percentage = passed * 100 / total;
@@ -219,7 +215,7 @@ void ResultPercentage::printToHtml(ofstream& out) const {
     if (passed == total) {
         out << "      <tr>" << endl;
         out << "        <td class='passed'>" << "[======= 100% =======]" << "</td>" << endl;
-        out << "        <td class='percentage_text'>" << "Passed all test cases." << "</td>" << endl;
+        out << "        <td class='percentage_text'>" << "Passed all " << total << " test cases." << "</td>" << endl;
         out << "      </tr>" << endl;
     } else {
         out << "      <tr>" << endl;
