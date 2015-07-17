@@ -1,4 +1,13 @@
+# Build Folder and Files
 bin
 obj
+*.o
+*.exe
+
+# Temporary Files
+*~
+
+# User Project Files
 *.depend
 *.layout
+
