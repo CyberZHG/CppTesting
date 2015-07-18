@@ -80,46 +80,46 @@ int strcasecmp(const char* a, const char* b);
     __TEST_ARITH_(!=, expect, actual, fatal)
 
 #define __EXPECT_NE(expect, actual) \
-    __TEST_EQ_(expect, actual, false)
+    __TEST_NE_(expect, actual, false)
 
 #define __ASSERT_NE(expect, actual) \
-    __TEST_EQ_(expect, actual, true)
+    __TEST_NE_(expect, actual, true)
 
 #define __TEST_LT_(expect, actual, fatal) \
     __TEST_ARITH_(<, expect, actual, fatal)
 
 #define __EXPECT_LT(expect, actual) \
-    __TEST_EQ_(expect, actual, false)
+    __TEST_LT_(expect, actual, false)
 
 #define __ASSERT_LT(expect, actual) \
-    __TEST_EQ_(expect, actual, true)
+    __TEST_LT_(expect, actual, true)
 
 #define __TEST_LE_(expect, actual, fatal) \
     __TEST_ARITH_(<=, expect, actual, fatal)
 
 #define __EXPECT_LE(expect, actual) \
-    __TEST_EQ_(expect, actual, false)
+    __TEST_LE_(expect, actual, false)
 
 #define __ASSERT_LE(expect, actual) \
-    __TEST_EQ_(expect, actual, true)
+    __TEST_LE_(expect, actual, true)
 
 #define __TEST_GT_(expect, actual, fatal) \
     __TEST_ARITH_(>, expect, actual, fatal)
 
 #define __EXPECT_GT(expect, actual) \
-    __TEST_EQ_(expect, actual, false)
+    __TEST_GT_(expect, actual, false)
 
 #define __ASSERT_GT(expect, actual) \
-    __TEST_EQ_(expect, actual, true)
+    __TEST_GT_(expect, actual, true)
 
 #define __TEST_GE_(expect, actual, fatal) \
     __TEST_ARITH_(>=, expect, actual, fatal)
 
 #define __EXPECT_GE(expect, actual) \
-    __TEST_EQ_(expect, actual, false)
+    __TEST_GE_(expect, actual, false)
 
 #define __ASSERT_GE(expect, actual) \
-    __TEST_EQ_(expect, actual, true)
+    __TEST_GE_(expect, actual, true)
 
 #define __TEST_NEAR_(expect, actual, absError, fatal) { \
     auto expectVal = (expect); \
