@@ -17,8 +17,6 @@ $(TARGET): pre-build $(OBJS)
 	$(CC) $(OBJS_PATH) $(INC) -o $(BIN_DIR)/$(TARGET)
 
 pre-build:
-	echo $(OBJS)
-	echo $(OBJS_PATH)
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(BIN_DIR)
 
