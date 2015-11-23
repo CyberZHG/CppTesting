@@ -13,6 +13,7 @@
 namespace ztest {
 
 int strcasecmp(const char* a, const char* b);
+std::string mem2str(const void* mem, int len);
 
 #define __TEST_BASE_(actualText, result, expectValue, actualValue, fatal) { \
     if (!result) { \
@@ -146,6 +147,33 @@ int strcasecmp(const char* a, const char* b);
 
 #define __ASSERT_STREQ(expect, actual) \
     __TEST_STREQ_(expect, actual, true)
+
+#define __TEST_MEMEQ_(expect, actual, len, fatal) { \
+    std::string expectVal = mem2str((expect), len); \
+    std::string actualVal = mem2str((actual), len); \
+    bool result = memcmp(expect, actual, len) == 0; \
+    __TEST_DUAL_(actual, result, expectVal, actualVal, fatal) \
+}
+
+#define __EXPECT_MEMEQ(expect, actual, len) \
+    __TEST_MEMEQ_(expect, actual, len, false)
+
+#define __ASSERT_MEMEQ(expect, actual, len) \
+    __TEST_MEMEQ_(expect, actual, len, true)
+
+
+#define __TEST_MEMNE_(expect, actual, len, fatal) { \
+    std::string expectVal = mem2str((expect), len); \
+    std::string actualVal = mem2str((actual), len); \
+    bool result = memcmp(expect, actual, len) != 0; \
+    __TEST_DUAL_(actual, result, expectVal, actualVal, fatal) \
+}
+
+#define __EXPECT_MEMNE(expect, actual, len) \
+    __TEST_MEMNE_(expect, actual, len, false)
+
+#define __ASSERT_MEMNE(expect, actual, len) \
+    __TEST_MEMNE_(expect, actual, len, true)
 
 #define __TEST_STRNE_(expect, actual, fatal) { \
     const char* expectVal = (expect); \

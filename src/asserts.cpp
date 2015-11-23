@@ -1,5 +1,6 @@
 #include <cstring>
 #include "asserts.h"
+using namespace std;
 using namespace ztest;
 
 int ztest::strcasecmp(const char* a, const char* b) {
@@ -20,3 +21,26 @@ int ztest::strcasecmp(const char* a, const char* b) {
     }
     return 0;
 }
+
+char dec2hex(int x) {
+    if (x < 10) {
+        return '0' + x;
+    }
+    return 'A' + x - 10;
+}
+
+string ztest::mem2str(const void* mem, int len) {
+    string s;
+    const char* data = (const char*)mem;
+    for (int i = 0; i < len; ++i) {
+        if (32 <= data[i] && data[i] <= 126) {
+            s += data[i];
+        } else {
+            s += "\\x";
+            s += dec2hex(data[i] / 16);
+            s += dec2hex(data[i] % 16);
+        }
+    }
+    return s;
+}
+

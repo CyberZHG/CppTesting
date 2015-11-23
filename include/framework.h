@@ -12,8 +12,7 @@ class TestSuite;
 class Result;
 class ResultList;
 
-class Framework
-{
+class Framework {
 public:
     static Framework* getInstance();
     virtual ~Framework();
