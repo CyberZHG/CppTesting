@@ -24,19 +24,23 @@ Framework::Framework() :
 }
 
 Framework::~Framework() {
+    for (auto& item : testSuites) {
+        delete item.second;
+    }
     delete this->resultList;
 }
 
 void Framework::addTestSuite(string suiteName, TestSuite* testSuite) {
-    if (testSuites.find(suiteName) == testSuites.end()) {
-        this->testSuites[suiteName] = testSuite;
+    if (testIndex.find(suiteName) == testIndex.end()) {
+        testIndex[suiteName] = (int)testSuites.size();
+        testSuites.push_back({suiteName, testSuite});
     } else {
         delete testSuite;
     }
 }
 
 void Framework::addTestCase(string suiteName, string caseName, TestCase* testCase) {
-    testSuites[suiteName]->addTest(caseName, testCase);
+    testSuites[testIndex[suiteName]].second->addTest(caseName, testCase);
 }
 
 void Framework::runTests() {

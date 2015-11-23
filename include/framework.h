@@ -2,6 +2,7 @@
 #define FRAMEWORK_H
 
 #include <map>
+#include <vector>
 #include <string>
 #include <memory>
 
@@ -38,7 +39,8 @@ public:
 private:
     static Framework* instance;
     Framework();
-    std::map<std::string, TestSuite*> testSuites;
+    std::vector<std::pair<std::string, TestSuite*>> testSuites;
+    std::map<std::string, int> testIndex;
     ResultList* resultList;
 
     bool failedFlag;

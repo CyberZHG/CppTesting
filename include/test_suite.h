@@ -1,7 +1,7 @@
 #ifndef TEST_SUITE_H_INCLUDED
 #define TEST_SUITE_H_INCLUDED
 
-#include <map>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <memory>
@@ -22,13 +22,13 @@ public:
     }
 
     virtual ~TestSuite() {
-        for (auto testCase : this->testCases) {
-            delete testCase.second;
+        for (auto& item : this->testCases) {
+            delete item.second;
         }
     }
 
     void addTest(std::string testName, TestCase *testCase) {
-        testCases[testName] = testCase;
+        testCases.push_back({testName, testCase});
     }
 
     int testCount() const {
@@ -43,7 +43,7 @@ public:
 
 protected:
     int testPassedNum;
-    std::map<std::string, TestCase*> testCases;
+    std::vector<std::pair<std::string, TestCase*>> testCases;
 };
 
 template<class UnitTestClass>
