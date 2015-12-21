@@ -6,6 +6,7 @@ obj
 
 # Temporary Files
 *~
+results.html
 
 # User Project Files
 *.depend

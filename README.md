@@ -1,5 +1,7 @@
 # ZTest
 
+[![travis-ci](https://travis-ci.org/CyberZHG/CppTesting.svg)](https://travis-ci.org/CyberZHG/CppTesting)
+
 This is a C++ testing framework which imitates gtest's interface since gtest is outside our great wall and it is difficult to compile on Windows. The framework is writtern based on some C++11 features, and it could be cross-platform.
 
 ![Sample](https://cloud.githubusercontent.com/assets/853842/6818613/0fe927b0-d2ee-11e4-830a-6c18a41e280e.png)

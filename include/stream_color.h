@@ -1,20 +1,25 @@
-#ifndef STREAM_COLOR_H_INCLUDED
-#define STREAM_COLOR_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_STREAM_COLOR_H_
+#define INCLUDE_STREAM_COLOR_H_
 
+#include <string>
 #include <iostream>
 
 namespace ztest {
 
-std::ostream& white(std::ostream& out);
-std::ostream& red(std::ostream& out);
-std::ostream& green(std::ostream& out);
-std::ostream& blue(std::ostream& out);
-std::ostream& yellow(std::ostream& out);
-std::ostream& purple(std::ostream& out);
-std::ostream& magenta(std::ostream& out);
-std::ostream& cyan(std::ostream& out);
-std::ostream& black(std::ostream& out);
+enum class TextColor {
+    WHITE,
+    RED,
+    GREEN,
+    BLUE,
+    YELLOW,
+    MAGENTA,
+    CYAN,
+    BLACK
+};
 
-}
+void color(std::ostream* out, TextColor color, const std::string& text);
 
-#endif // STREAM_COLOR_H_INCLUDED
+}  // namespace ztest
+
+#endif  // INCLUDE_STREAM_COLOR_H_

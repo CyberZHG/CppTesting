@@ -71,7 +71,7 @@ void Framework::print() {
 void Framework::printToHtml(string filePath) {
     ofstream out;
     out.open(filePath.c_str());
-    resultList->printToHtml(out);
+    resultList->printToHtml(&out);
     out.close();
 }
 

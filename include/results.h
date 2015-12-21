@@ -1,22 +1,24 @@
-#ifndef RESULTS_H_INCLUDED
-#define RESULTS_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_RESULTS_H_
+#define INCLUDE_RESULTS_H_
 
 #include <vector>
+#include <string>
 #include <fstream>
 #include <memory>
 
 namespace ztest {
 
 class Result {
-public:
+ public:
     Result();
     virtual ~Result();
     virtual void print() const = 0;
-    virtual void printToHtml(std::ofstream& out) const = 0;
+    virtual void printToHtml(std::ofstream* out) const = 0;
 };
 
 class ResultList {
-public:
+ public:
     ResultList();
     virtual ~ResultList();
 
@@ -24,42 +26,44 @@ public:
     void clear();
 
     void print() const;
-    void printToHtml(std::ofstream& out) const;
+    void printToHtml(std::ofstream* out) const;
 
-private:
+ private:
     std::vector<std::shared_ptr<Result>> results;
 };
 
 class ResultSuiteBegin : public Result {
-public:
-    ResultSuiteBegin(std::string title);
+ public:
+    explicit ResultSuiteBegin(std::string title);
     virtual ~ResultSuiteBegin();
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 
-private:
+ private:
     std::string title;
 };
 
 class ResultSuiteEnd : public Result {
-public:
+ public:
     ResultSuiteEnd();
     virtual ~ResultSuiteEnd();
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 };
 
 class ResultTestFailed : public Result {
-public:
-    ResultTestFailed(std::string file, int line, std::string expression, std::string expect, std::string actual);
+ public:
+    ResultTestFailed(std::string file, int line,
+                     std::string expression,
+                     std::string expect, std::string actual);
     virtual ~ResultTestFailed();
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 
-private:
+ private:
     std::string file;
     int line;
     std::string expression;
@@ -68,15 +72,16 @@ private:
 };
 
 class ResultTestFailedVariables : public Result {
-public:
-    ResultTestFailedVariables(std::string file, int line, std::string expression);
+ public:
+    ResultTestFailedVariables(std::string file, int line,
+                              std::string expression);
     virtual ~ResultTestFailedVariables();
     void addParameter(std::string name, std::string value);
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 
-private:
+ private:
     std::string file;
     int line;
     std::string expression;
@@ -85,40 +90,40 @@ private:
 };
 
 class ResultCaseBegin : public Result {
-public:
+ public:
     ResultCaseBegin();
     virtual ~ResultCaseBegin();
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 };
 
 class ResultCaseEnd : public Result {
-public:
+ public:
     ResultCaseEnd(std::string caseName, bool passed);
     virtual ~ResultCaseEnd();
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 
-private:
+ private:
     std::string caseName;
     bool passed;
 };
 
 class ResultPercentage : public Result {
-public:
+ public:
     ResultPercentage(int passed, int total);
     virtual ~ResultPercentage();
 
-    virtual void print() const override final;
-    virtual void printToHtml(std::ofstream& out) const override final;
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
 
-private:
+ private:
     int passed;
     int total;
 };
 
-}
+}  // namespace ztest
 
-#endif // RESULTS_H_INCLUDED
+#endif  // INCLUDE_RESULTS_H_
