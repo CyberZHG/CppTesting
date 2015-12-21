@@ -257,7 +257,7 @@ void ResultPercentage::print() const {
             color(&cout, TextColor::RED, "  ");
         }
         char buf[8];
-        sprintf(buf, "%d", percentage);
+        snprintf(buf, sizeof(buf), "%d", percentage);
         color(&cout, TextColor::RED, buf);
         color(&cout, TextColor::RED, "% =] ");
         cout << endl;

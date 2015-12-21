@@ -8,7 +8,13 @@ using std::string;
 
 namespace ztest {
 
-#if defined(_WIN32) || defined(_WIN64)
+#if defined(_U_S_TEST)
+
+void color(ostream*, TextColor color, const string& text) {
+    (*out) << text;
+}
+
+#elif defined(_WIN32) || defined(_WIN64)
 // Windows
 
 #include <windows.h>

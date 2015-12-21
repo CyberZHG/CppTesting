@@ -1,9 +1,13 @@
+/* Copyright 2015 ZhaoHG */
 #include <cstring>
-#include "asserts.h"
-using namespace std;
-using namespace ztest;
+#include <string>
+#include "../include/asserts.h"
 
-int ztest::strcasecmp(const char* a, const char* b) {
+using std::string;
+
+namespace ztest {
+
+int strcasecmp(const char* a, const char* b) {
     while (*a != 0 && *b != 0) {
         if (tolower(*a) < tolower(*b)) {
             return -1;
@@ -29,7 +33,7 @@ char dec2hex(int x) {
     return 'A' + x - 10;
 }
 
-string ztest::mem2str(const void* mem, int len) {
+string mem2str(const void* mem, int len) {
     string s;
     const char* data = (const char*)mem;
     for (int i = 0; i < len; ++i) {
@@ -44,3 +48,4 @@ string ztest::mem2str(const void* mem, int len) {
     return s;
 }
 
+}  // namespace ztest

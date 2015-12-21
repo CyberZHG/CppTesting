@@ -1,5 +1,6 @@
-#ifndef ASSERTS_H_INCLUDED
-#define ASSERTS_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_ASSERTS_H_
+#define INCLUDE_ASSERTS_H_
 
 #include <cmath>
 #include <cstring>
@@ -7,8 +8,8 @@
 #include <vector>
 #include <sstream>
 #include <memory>
-#include "results.h"
-#include "exceptions.h"
+#include "./results.h"
+#include "./exceptions.h"
 
 namespace ztest {
 
@@ -19,7 +20,11 @@ std::string mem2str(const void* mem, int len);
     if (!result) { \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        framework->appendResult(std::shared_ptr<Result>(new ResultTestFailed(__FILE__, __LINE__, actualText, expectValue, actualValue))); \
+        framework->appendResult(std::shared_ptr<Result> \
+                                (new ResultTestFailed(__FILE__, __LINE__, \
+                                                      actualText, \
+                                                      expectValue, \
+                                                      actualValue))); \
         if (fatal) { \
             throw AssertException(); \
         } \
@@ -238,9 +243,11 @@ std::string mem2str(const void* mem, int len);
     } \
     if (!caught) { \
         if (gotException) { \
-            __TEST_BASE_(#statement, false, #exception_type, "Unknown Exception", fatal) \
+            __TEST_BASE_(#statement, false, #exception_type, \
+                         "Unknown Exception", fatal) \
         } else { \
-            __TEST_BASE_(#statement, false, #exception_type, "No Exception", fatal) \
+            __TEST_BASE_(#statement, false, #exception_type, \
+                         "No Exception", fatal) \
         } \
     } \
 }
@@ -291,7 +298,8 @@ std::string mem2str(const void* mem, int len);
     out.str(""); \
     out.clear(); \
     out << parameterValue; \
-    std::static_pointer_cast<ResultTestFailedVariables>(result)->addParameter(parameterName, out.str());
+    std::static_pointer_cast<ResultTestFailedVariables>(result)-> \
+        addParameter(parameterName, out.str());
 
 #define __TEST_PRED_FORMAT1_(func, val1, fatal) { \
     auto val1Val = (val1); \
@@ -299,7 +307,9 @@ std::string mem2str(const void* mem, int len);
         std::ostringstream out; \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1")")); \
+        std::shared_ptr<Result> result(\
+            new ResultTestFailedVariables(__FILE__, __LINE__, \
+                                          ""#func"("#val1")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         framework->appendResult(result); \
         if (fatal) { \
@@ -321,7 +331,9 @@ std::string mem2str(const void* mem, int len);
         std::ostringstream out; \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2")")); \
+        std::shared_ptr<Result> result(\
+            new ResultTestFailedVariables(__FILE__, __LINE__, \
+                                          ""#func"("#val1", "#val2")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         framework->appendResult(result); \
@@ -345,7 +357,9 @@ std::string mem2str(const void* mem, int len);
         std::ostringstream out; \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3")")); \
+        std::shared_ptr<Result> result(\
+            new ResultTestFailedVariables(__FILE__, __LINE__, \
+                                    ""#func"("#val1", "#val2", "#val3")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val3, val3Val); \
@@ -371,7 +385,9 @@ std::string mem2str(const void* mem, int len);
         std::ostringstream out; \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4")")); \
+        std::shared_ptr<Result> result(\
+            new ResultTestFailedVariables(__FILE__, __LINE__, \
+                            ""#func"("#val1", "#val2", "#val3", "#val4")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val3, val3Val); \
@@ -399,7 +415,9 @@ std::string mem2str(const void* mem, int len);
         std::ostringstream out; \
         Framework* framework = Framework::getInstance(); \
         framework->setFailedFlag(); \
-        std::shared_ptr<Result> result(new ResultTestFailedVariables(__FILE__, __LINE__, ""#func"("#val1", "#val2", "#val3", "#val4", "#val5")")); \
+        std::shared_ptr<Result> result(\
+            new ResultTestFailedVariables(__FILE__, __LINE__, \
+                    ""#func"("#val1", "#val2", "#val3", "#val4", "#val5")")); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val1, val1Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val2, val2Val); \
         __TEST_PRED_FORMAT_ADD_VALUE_(#val3, val3Val); \
@@ -418,6 +436,6 @@ std::string mem2str(const void* mem, int len);
 #define __ASSERT_PRED_FORMAT5(func, val1, val2, val3, val4, val5) \
     __TEST_PRED_FORMAT5_(func, val1, val2, val3, val4, val5, true)
 
-}
+}  // namespace ztest
 
-#endif // ASSERTS_H_INCLUDED
+#endif  // INCLUDE_ASSERTS_H_

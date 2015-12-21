@@ -1,12 +1,13 @@
-#ifndef TEST_CASE_H_INCLUDED
-#define TEST_CASE_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_TEST_CASE_H_
+#define INCLUDE_TEST_CASE_H_
 
 namespace ztest {
 
 class UnitTest;
 
 class TestCase {
-public:
+ public:
     TestCase() {}
     virtual ~TestCase() {}
     virtual UnitTest* newTest() = 0;
@@ -14,14 +15,14 @@ public:
 
 template<class UnitTestClass>
 class TestCaseSpecialize : public TestCase {
-public:
+ public:
     TestCaseSpecialize() {}
     virtual ~TestCaseSpecialize() {}
-    virtual UnitTest* newTest() override final {
+    UnitTest* newTest() final {
         return new UnitTestClass();
     }
 };
 
-}
+}  // namespace ztest
 
-#endif // TEST_CASE_H_INCLUDED
+#endif  // INCLUDE_TEST_CASE_H_

@@ -1,5 +1,6 @@
-#ifndef EXCEPTIONS_H_INCLUDED
-#define EXCEPTIONS_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_EXCEPTIONS_H_
+#define INCLUDE_EXCEPTIONS_H_
 
 #include <string>
 
@@ -9,4 +10,4 @@ struct AssertException {};
 
 }
 
-#endif // EXCEPTIONS_H_INCLUDED
+#endif  // INCLUDE_EXCEPTIONS_H_

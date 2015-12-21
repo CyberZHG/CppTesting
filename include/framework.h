@@ -1,10 +1,12 @@
-#ifndef FRAMEWORK_H
-#define FRAMEWORK_H
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_FRAMEWORK_H_
+#define INCLUDE_FRAMEWORK_H_
 
 #include <map>
 #include <vector>
 #include <string>
 #include <memory>
+#include <utility>
 
 namespace ztest {
 
@@ -14,7 +16,7 @@ class Result;
 class ResultList;
 
 class Framework {
-public:
+ public:
     static Framework* getInstance();
     virtual ~Framework();
 
@@ -22,7 +24,8 @@ public:
     Framework& operator=(const Framework&) = default;
 
     void addTestSuite(std::string suiteName, TestSuite* testSuite);
-    void addTestCase(std::string suiteName, std::string caseName, TestCase* testCase);
+    void addTestCase(std::string suiteName, std::string caseName,
+                     TestCase* testCase);
 
     void runTests();
     void appendResult(std::shared_ptr<Result> result);
@@ -36,7 +39,11 @@ public:
     void resetFailedFlag();
     bool isTestFailed() const;
 
-private:
+    int getTotalPassed() const;
+    int getTotalCount() const;
+    bool isAllPassed() const;
+
+ private:
     static Framework* instance;
     Framework();
     std::vector<std::pair<std::string, TestSuite*>> testSuites;
@@ -44,8 +51,10 @@ private:
     ResultList* resultList;
 
     bool failedFlag;
+    int totalPassed;
+    int totalCount;
 };
 
-}
+}  // namespace ztest
 
-#endif // FRAMEWORK_H
+#endif  // INCLUDE_FRAMEWORK_H_

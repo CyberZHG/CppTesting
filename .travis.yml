@@ -5,6 +5,4 @@ compiler:
 before_script:
   - sudo pip install cpplint
 script: 
-  - cpplint include/*.h
-  - cpplint src/*.cpp
-  - cpplint main.cpp
+  - sudo sh ./lint.sh

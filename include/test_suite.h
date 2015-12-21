@@ -1,22 +1,24 @@
-#ifndef TEST_SUITE_H_INCLUDED
-#define TEST_SUITE_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_TEST_SUITE_H_
+#define INCLUDE_TEST_SUITE_H_
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <memory>
-#include "results.h"
-#include "stream_color.h"
-#include "unit_test.h"
-#include "framework.h"
-#include "exceptions.h"
+#include <utility>
+#include "./results.h"
+#include "./stream_color.h"
+#include "./unit_test.h"
+#include "./framework.h"
+#include "./exceptions.h"
 
 namespace ztest {
 
 class UnitTest;
 
 class TestSuite {
-public:
+ public:
     TestSuite() :
         testPassedNum(0), testCases() {
     }
@@ -41,17 +43,17 @@ public:
 
     virtual void runTests() = 0;
 
-protected:
+ protected:
     int testPassedNum;
     std::vector<std::pair<std::string, TestCase*>> testCases;
 };
 
 template<class UnitTestClass>
 class TestSuiteSpecialize : public TestSuite {
-public:
+ public:
     TestSuiteSpecialize() {}
 
-    virtual void runTests() override final {
+    void runTests() final {
         UnitTestClass base;
         try {
             base.setUp();
@@ -61,7 +63,8 @@ public:
         testPassedNum = 0;
         Framework* framework = Framework::getInstance();
         for (auto testCase : testCases) {
-            framework->appendResult(std::shared_ptr<Result>(new ResultCaseBegin()));
+            framework->appendResult(std::shared_ptr<Result>
+                                    (new ResultCaseBegin()));
             UnitTest* test = testCase.second->newTest();
             *dynamic_cast<UnitTestClass*>(test) = base;
             framework->resetFailedFlag();
@@ -77,7 +80,8 @@ public:
             if (!framework->isTestFailed()) {
                 ++testPassedNum;
             }
-            framework->appendResult(std::shared_ptr<Result>(new ResultCaseEnd(testCase.first, !framework->isTestFailed())));
+            framework->appendResult(std::shared_ptr<Result>(new
+                ResultCaseEnd(testCase.first, !framework->isTestFailed())));
         }
         try {
             base.tearDown();
@@ -87,6 +91,6 @@ public:
     }
 };
 
-}
+}  // namespace ztest
 
-#endif // TEST_SUITE_H_INCLUDED
+#endif  // INCLUDE_TEST_SUITE_H_

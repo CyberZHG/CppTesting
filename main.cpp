@@ -1,6 +1,7 @@
 /* Copyright 2015 ZhaoHG */
 #include "include/ztest.h"
-using namespace ztest;
+
+namespace ztest {
 
 class ExampleUnitTest : public UnitTest {
  public:
@@ -33,11 +34,15 @@ __TEST_U(CorrectUnitTest, test3) {}
 __TEST_U(CorrectUnitTest, test4) {}
 __TEST_U(CorrectUnitTest, test5) {}
 
+}  // namespace ztest
+
+using ztest::Framework;
+
 int main() {
     Framework* framework = Framework::getInstance();
     framework->runTests();
     framework->print();
     framework->printToHtml("results.html");
     framework->finish();
-    return 0;
+    return !framework->isAllPassed();
 }

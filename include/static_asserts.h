@@ -1,5 +1,6 @@
-#ifndef STATIC_ASSERTS_H_INCLUDED
-#define STATIC_ASSERTS_H_INCLUDED
+/* Copyright 2015 ZhaoHG */
+#ifndef INCLUDE_STATIC_ASSERTS_H_
+#define INCLUDE_STATIC_ASSERTS_H_
 
 namespace ztest {
 
@@ -15,6 +16,6 @@ bool StaticAssertTypeEq() {
   return true;
 }
 
-}
+}  // namespace ztest
 
-#endif // STATIC_ASSERTS_H_INCLUDED
+#endif  // INCLUDE_STATIC_ASSERTS_H_
