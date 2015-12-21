@@ -10,7 +10,7 @@ namespace ztest {
 
 #if defined(_U_S_TEST)
 
-void color(ostream*, TextColor color, const string& text) {
+void color(ostream* out, TextColor color, const string& text) {
     (*out) << text;
 }
 

@@ -6,6 +6,7 @@ obj
 
 # Temporary Files
 *~
+*.temp
 results.html
 
 # User Project Files
