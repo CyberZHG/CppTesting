@@ -35,6 +35,7 @@
 			<Add option="-fexceptions" />
 			<Add directory="include" />
 		</Compiler>
+		<Unit filename="demo.cpp" />
 		<Unit filename="include/asserts.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -53,7 +54,6 @@
 		<Unit filename="include/test_suite.h" />
 		<Unit filename="include/unit_test.h" />
 		<Unit filename="include/ztest.h" />
-		<Unit filename="main.cpp" />
 		<Unit filename="src/asserts.cpp" />
 		<Unit filename="src/framework.cpp" />
 		<Unit filename="src/results.cpp" />

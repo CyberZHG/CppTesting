@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #include <cstdio>
 #include <string>
 #include "../include/stream_color.h"

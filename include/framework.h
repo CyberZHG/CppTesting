@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #ifndef INCLUDE_FRAMEWORK_H_
 #define INCLUDE_FRAMEWORK_H_
 

@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #include "../include/ztest.h"
 
 using ztest::Framework;
