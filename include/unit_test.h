@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #ifndef INCLUDE_UNIT_TEST_H_
 #define INCLUDE_UNIT_TEST_H_
 

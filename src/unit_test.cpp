@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #include "../include/unit_test.h"
 
 namespace ztest {
