@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #ifndef INCLUDE_STATIC_ASSERTS_H_
 #define INCLUDE_STATIC_ASSERTS_H_
 

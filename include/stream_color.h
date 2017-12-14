@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #ifndef INCLUDE_STREAM_COLOR_H_
 #define INCLUDE_STREAM_COLOR_H_
 

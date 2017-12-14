@@ -1,4 +1,3 @@
-/* Copyright 2015 ZhaoHG */
 #include <string>
 #include <fstream>
 #include <iostream>
