@@ -6,8 +6,7 @@ mkdir -p "bin"
 mkdir -p "obj"
 make all
 mkdir -p "output"
-file_string=$(ls -a *.cpp)
-file_names=(${file_string//\\n/})
+file_names=($(ls -d *.cpp))
 exit_code=0
 for i in "${!file_names[@]}"
 do
@@ -16,15 +15,15 @@ do
 	obj_path="bin/${short_name[0]}"
 	output_path="output/${short_name}.temp"
 	run_cmd="./${obj_path} > ${output_path}"
+	echo $run_cmd
 	eval $run_cmd
 	standard_path="standard/${short_name}.result"
 	result=$(diff -q "${output_path}" "${standard_path}")
-	echo $short_name
 	if [ "${#result}" -gt 0 ]; then
 		exit_code=1
 		echo -e "\033[1;31mERROR!!!\033[0m"
 		echo "Actual:"
-		IFS=$"\n"
+		IFS=$'\n'
 		for line in $(cat "${output_path}")
 		do
 			echo $line
