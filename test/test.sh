@@ -23,7 +23,7 @@ do
 		exit_code=1
 		echo -e "\033[1;31mERROR!!!\033[0m"
 		echo "Actual:"
-		IFS=$"\n"
+		IFS=$'\n'
 		for line in $(cat "${output_path}")
 		do
 			echo $line
