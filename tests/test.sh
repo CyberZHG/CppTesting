@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [ -z "$CXX" ]; then
+if [[ -z "$CXX" ]]; then
 	CXX="g++"
 fi
 mkdir -p "bin"
@@ -19,7 +19,7 @@ do
 	eval $run_cmd
 	standard_path="standard/${short_name}.result"
 	result=$(diff -q "${output_path}" "${standard_path}")
-	if [ "${#result}" -gt 0 ]; then
+	if [[ "${#result}" -gt 0 ]]; then
 		exit_code=1
 		echo -e "\033[1;31mERROR!!!\033[0m"
 		echo "Actual:"
@@ -39,7 +39,7 @@ do
 	fi
 	echo ""
 done
-if [ "${exit_code}" -ne 0 ]; then
+if [[ "${exit_code}" -ne 0 ]]; then
 	echo -e "\033[1;31mFailed\033[0m"
 else
 	echo -e "\033[1;32mSuccess\033[0m"

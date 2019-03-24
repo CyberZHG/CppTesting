@@ -1,8 +1,7 @@
-# ZTest
+C++ Unit Testing
+================
 
 [![travis-ci](https://travis-ci.org/CyberZHG/CppTesting.svg)](https://travis-ci.org/CyberZHG/CppTesting)
-
-This is a C++ testing framework which imitates gtest's interface since gtest is outside our great wall and it is difficult to compile on Windows. The framework is writtern based on some C++11 features, and it could be cross-platform.
 
 ![Sample](https://cloud.githubusercontent.com/assets/853842/6818613/0fe927b0-d2ee-11e4-830a-6c18a41e280e.png)
 
@@ -10,20 +9,18 @@ This is a C++ testing framework which imitates gtest's interface since gtest is 
 
 ### Fundamental
 
-A __test suite__ contains many __test cases__ of the same purpose. You can not create a __test case__ without creating a __test suite__. To create a test suite, just inherit `UnitTest` class, the name of the inherited class is the name of the test suite. The test cases in the same test suite will not influence each other.
+A __test suite__ contains several __test cases__. A test case cannot be created without creating a test suite. Inherit the `UnitTest` class to create a test suite:
 
-Example:
 ```cpp
-#include "ztest.h"
-using namespace ztest;
+#include "test.h"
 
-class ExampleUnitTest : public UnitTest {
-public:
-    virtual void setUp() override final {}
-    virtual void setUpEach() override final {}
-    virtual void tearDownEach() override final {}
-    virtual void tearDown() override final {}
-protected:
+class ExampleUnitTest : public test::UnitTest {
+ public:
+    void setUp() final {}
+    void setUpEach() final {}
+    void tearDownEach() final {}
+    void tearDown() final {}
+ protected:
     int inClassValue;
 };
 ```
@@ -48,8 +45,7 @@ The first parameter of `__TEST_U` is the name of the test suite, the second para
 After the definition of the test suites and test cases, we can run our tests:
 
 ```cpp
-int main()
-{
+int main() {
     Framework* framework = Framework::getInstance();
     framework->runTests();
     framework->print();
@@ -171,8 +167,7 @@ These macros take a function name and some parameter values as parameters. For e
 The testing framework supports two output methods currently, which are printing to console using standard output and write the results to an HTML file:
 
 ```cpp
-int main()
-{
+int main() {
     Framework* framework = Framework::getInstance();
     framework->runTests();
     framework->printToHtml("results.html");

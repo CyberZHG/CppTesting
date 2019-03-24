@@ -53,7 +53,7 @@
 		<Unit filename="include/test_case.h" />
 		<Unit filename="include/test_suite.h" />
 		<Unit filename="include/unit_test.h" />
-		<Unit filename="include/ztest.h" />
+		<Unit filename="include/test.h" />
 		<Unit filename="src/asserts.cpp" />
 		<Unit filename="src/framework.cpp" />
 		<Unit filename="src/results.cpp" />

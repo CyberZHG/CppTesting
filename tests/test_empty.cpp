@@ -17,27 +17,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
-#ifndef INCLUDE_STREAM_COLOR_H_
-#define INCLUDE_STREAM_COLOR_H_
+#include "../include/test.h"
 
-#include <string>
-#include <iostream>
+using test::Framework;
 
-namespace test {
+int main() {
+    Framework* framework = Framework::getInstance();
+    framework->runTests();
+    framework->print();
+    return !framework->isAllPassed();
+}
 
-enum class TextColor {
-    WHITE,
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW,
-    MAGENTA,
-    CYAN,
-    BLACK
-};
-
-void color(std::ostream* out, TextColor color, const std::string& text);
-
-}  // namespace test
-
-#endif  // INCLUDE_STREAM_COLOR_H_

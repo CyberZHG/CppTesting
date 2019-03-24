@@ -17,27 +17,63 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
-#ifndef INCLUDE_STREAM_COLOR_H_
-#define INCLUDE_STREAM_COLOR_H_
-
-#include <string>
-#include <iostream>
+#include "../include/test.h"
 
 namespace test {
 
-enum class TextColor {
-    WHITE,
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW,
-    MAGENTA,
-    CYAN,
-    BLACK
+class TestBoolean : public UnitTest {
 };
 
-void color(std::ostream* out, TextColor color, const std::string& text);
+__TEST_U(TestBoolean, testAssertTrue_True) {
+    __ASSERT_TRUE(1 == 1);
+}
+
+__TEST_U(TestBoolean, testAssertTrue_False) {
+    __ASSERT_TRUE(0 == 1);
+}
+
+__TEST_U(TestBoolean, testAssertFalse_True) {
+    __ASSERT_FALSE(1 == 1);
+}
+
+__TEST_U(TestBoolean, testAssertFalse_False) {
+    __ASSERT_FALSE(0 == 1);
+}
+
+__TEST_U(TestBoolean, testExpectTrue_True) {
+    __EXPECT_TRUE(1 == 1);
+}
+
+__TEST_U(TestBoolean, testExpectTrue_False) {
+    __EXPECT_TRUE(0 == 1);
+}
+
+__TEST_U(TestBoolean, testExpectTrue_False_Continue) {
+    __EXPECT_TRUE(0 == 1);
+    __ASSERT_TRUE(false);
+}
+
+__TEST_U(TestBoolean, testExpectFalse_True) {
+    __EXPECT_FALSE(1 == 1);
+}
+
+__TEST_U(TestBoolean, testExpectFalse_True_Continue) {
+    __EXPECT_FALSE(1 == 1);
+    __ASSERT_TRUE(false);
+}
+
+__TEST_U(TestBoolean, testExpectFalse_False) {
+    __EXPECT_FALSE(0 == 1);
+}
 
 }  // namespace test
 
-#endif  // INCLUDE_STREAM_COLOR_H_
+using test::Framework;
+
+int main() {
+    Framework* framework = Framework::getInstance();
+    framework->runTests();
+    framework->print();
+    return !framework->isAllPassed();
+}
+

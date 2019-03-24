@@ -1,3 +1,22 @@
+/* Copyright 2019 Zhao HG
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. */
 #ifndef INCLUDE_ASSERTS_H_
 #define INCLUDE_ASSERTS_H_
 
@@ -7,10 +26,10 @@
 #include <vector>
 #include <sstream>
 #include <memory>
-#include "./results.h"
-#include "./exceptions.h"
+#include "results.h"
+#include "exceptions.h"
 
-namespace ztest {
+namespace test {
 
 int strcasecmp(const char* a, const char* b);
 std::string mem2str(const void* mem, int len);
@@ -195,7 +214,7 @@ std::string mem2str(const void* mem, int len);
 #define __TEST_STRCASEEQ_(expect, actual, fatal) { \
     const char* expectVal = (expect); \
     const char* actualVal = (actual); \
-    bool result = ztest::strcasecmp(expectVal, actualVal) == 0; \
+    bool result = test::strcasecmp(expectVal, actualVal) == 0; \
     __TEST_DUAL_(actual, result, expectVal, actualVal, fatal) \
 }
 
@@ -208,7 +227,7 @@ std::string mem2str(const void* mem, int len);
 #define __TEST_STRCASENE_(expect, actual, fatal) { \
     const char* expectVal = (expect); \
     const char* actualVal = (actual); \
-    bool result = ztest::strcasecmp(expectVal, actualVal) != 0; \
+    bool result = test::strcasecmp(expectVal, actualVal) != 0; \
     __TEST_DUAL_(actual, result, expectVal, actualVal, fatal) \
 }
 
@@ -435,6 +454,6 @@ std::string mem2str(const void* mem, int len);
 #define __ASSERT_PRED_FORMAT5(func, val1, val2, val3, val4, val5) \
     __TEST_PRED_FORMAT5_(func, val1, val2, val3, val4, val5, true)
 
-}  // namespace ztest
+}  // namespace test
 
 #endif  // INCLUDE_ASSERTS_H_

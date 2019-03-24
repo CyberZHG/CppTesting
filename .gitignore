@@ -13,3 +13,6 @@ results.html
 *.depend
 *.layout
 
+# IDE
+.idea
+cmake-build*
