@@ -1,4 +1,4 @@
-/* Copyright 2019 Zhao HG
+/* Copyright 2020 Zhao HG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -90,9 +90,13 @@ class TestSuiteSpecialize : public TestSuite {
                 test->setUpEach();
                 test->test();
                 test->tearDownEach();
-            } catch (AssertException e) {
-            } catch (...) {
+            } catch (const AssertException& e) {
+            } catch (const std::exception& e) {
                 framework->setFailedFlag();
+                framework->appendResult(std::shared_ptr<Result>(new
+                    ResultTestRuntimeError(testCase.second->file(),
+                                           testCase.second->line(),
+                                           e.what())));
             }
             delete test;
             if (!framework->isTestFailed()) {
@@ -103,7 +107,7 @@ class TestSuiteSpecialize : public TestSuite {
         }
         try {
             base.tearDown();
-        } catch (AssertException e) {
+        } catch (const AssertException& e) {
         } catch (...) {
         }
     }

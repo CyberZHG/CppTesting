@@ -17,40 +17,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
-#ifndef INCLUDE_TEST_CASE_H_
-#define INCLUDE_TEST_CASE_H_
-
-#include <string>
+#include <stdexcept>
+#include "../include/test.h"
 
 namespace test {
 
-class UnitTest;
-
-class TestCase {
- public:
-    TestCase(const std::string& file, int line) : _file(file), _line(line) {}
-    virtual ~TestCase() {}
-    virtual UnitTest* newTest() = 0;
-
-    inline const std::string& file() const { return _file; }
-    inline int line() const {  return _line; }
-
- private:
-     std::string _file;
-     int _line;
+class TestException : public UnitTest {
 };
 
-template<class UnitTestClass>
-class TestCaseSpecialize : public TestCase {
- public:
-    TestCaseSpecialize(const std::string& file, int line) :
-        TestCase(file, line) {}
-    virtual ~TestCaseSpecialize() {}
-    UnitTest* newTest() final {
-        return new UnitTestClass();
-    }
-};
+__TEST_U(TestException, test_out_of_bound) {
+    throw std::logic_error("what");
+}
 
 }  // namespace test
 
-#endif  // INCLUDE_TEST_CASE_H_
+using test::Framework;
+
+int main() {
+    Framework* framework = Framework::getInstance();
+    framework->runTests();
+    framework->print();
+    return framework->isAllPassed();
+}
+

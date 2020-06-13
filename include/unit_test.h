@@ -1,4 +1,4 @@
-/* Copyright 2019 Zhao HG
+/* Copyright 2020 Zhao HG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ class __TEST_CLASS_##suite##_##name##_ : public suite { \
         TestCaseSpecialize< __TEST_CLASS_##suite##_##name##_ >* \
                                                                 testCase; \
         testCase = new \
-                TestCaseSpecialize< __TEST_CLASS_##suite##_##name##_ >(); \
+                TestCaseSpecialize< __TEST_CLASS_##suite##_##name##_ >(__FILE__, __LINE__); \
         TestSuiteSpecialize< suite >* testSuite;\
         testSuite = new TestSuiteSpecialize< suite >(); \
         Framework::getInstance()->addTestSuite(""#suite"", testSuite); \

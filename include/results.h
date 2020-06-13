@@ -1,4 +1,4 @@
-/* Copyright 2019 Zhao HG
+/* Copyright 2020 Zhao HG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ class ResultList {
 
 class ResultSuiteBegin : public Result {
  public:
-    explicit ResultSuiteBegin(std::string title);
+    explicit ResultSuiteBegin(const std::string& title);
     virtual ~ResultSuiteBegin();
 
     void print() const final;
@@ -71,11 +71,26 @@ class ResultSuiteEnd : public Result {
     void printToHtml(std::ofstream* out) const final;
 };
 
+class ResultTestRuntimeError : public Result {
+ public:
+    ResultTestRuntimeError(const std::string& file, int line,
+                           const std::string& what);
+    virtual ~ResultTestRuntimeError();
+
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
+
+ private:
+    std::string file;
+    int line;
+    std::string what;
+};
+
 class ResultTestFailed : public Result {
  public:
-    ResultTestFailed(std::string file, int line,
-                     std::string expression,
-                     std::string expect, std::string actual);
+    ResultTestFailed(const std::string& file, int line,
+                     const std::string& expression,
+                     const std::string& expect, const std::string& actual);
     virtual ~ResultTestFailed();
 
     void print() const final;
@@ -91,10 +106,10 @@ class ResultTestFailed : public Result {
 
 class ResultTestFailedVariables : public Result {
  public:
-    ResultTestFailedVariables(std::string file, int line,
-                              std::string expression);
+    ResultTestFailedVariables(const std::string& file, int line,
+                              const std::string& expression);
     virtual ~ResultTestFailedVariables();
-    void addParameter(std::string name, std::string value);
+    void addParameter(const std::string& name, const std::string& value);
 
     void print() const final;
     void printToHtml(std::ofstream* out) const final;
@@ -118,7 +133,7 @@ class ResultCaseBegin : public Result {
 
 class ResultCaseEnd : public Result {
  public:
-    ResultCaseEnd(std::string caseName, bool passed);
+    ResultCaseEnd(const std::string& caseName, bool passed);
     virtual ~ResultCaseEnd();
 
     void print() const final;

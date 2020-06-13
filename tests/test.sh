@@ -6,6 +6,8 @@ mkdir -p "bin"
 mkdir -p "obj"
 make all
 mkdir -p "output"
+rm "output/*"
+find . -name "*.gcda" -delete
 file_names=($(ls -d *.cpp))
 exit_code=0
 for i in "${!file_names[@]}"
