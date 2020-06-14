@@ -20,6 +20,7 @@ SOFTWARE. */
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <csignal>
 #include "results.h"
 #include "unit_test.h"
 #include "test_case.h"
@@ -71,10 +72,21 @@ void Framework::addTestCase(string suiteName, string caseName,
     testSuites[testIndex[suiteName]].second->addTest(caseName, testCase);
 }
 
+void sig_action_handler(int signal) {
+    throw std::runtime_error(std::string("Segment fault detected, ") +
+                             "the test results may be unstable: " +
+                             std::to_string(signal));
+}
+
 void Framework::runTests() {
     totalPassed = 0;
     totalCount = 0;
     resultList->clear();
+    struct sigaction sa;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_handler = sig_action_handler;
+    sa.sa_flags = SA_SIGINFO;
+    sigaction(SIGSEGV, &sa, NULL);
     for (auto suite : testSuites) {
         this->appendResult(shared_ptr<Result>(
                                 new ResultSuiteBegin(suite.first)));

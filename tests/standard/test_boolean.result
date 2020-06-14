@@ -33,8 +33,8 @@ test_boolean.cpp(62): false
     Actual: false
 [ FAILED ] testExpectFalse_True_Continue
 [ PASSED ] testExpectFalse_False
-[=  40% =] 
-4 / 10 test cases passed. 
+[=  40% =]
+4 / 10 test cases passed.
 
-[=  40% =] 
-4 / 10 test cases passed. 
+[=  40% =]
+4 / 10 test cases passed.

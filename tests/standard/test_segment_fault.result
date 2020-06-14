@@ -1,0 +1,9 @@
+[========] TestSegmentFault
+test_segment_fault.cpp(27):
+    Exception: Segment fault detected, the test results may be unstable: 11
+[ FAILED ] test_out_of_bound
+[=   0% =]
+0 / 1 test cases passed.
+
+[=   0% =]
+0 / 1 test cases passed.

@@ -147,8 +147,8 @@ ResultTestRuntimeError::ResultTestRuntimeError(const std::string& _file,
 ResultTestRuntimeError::~ResultTestRuntimeError() {}
 
 void ResultTestRuntimeError::print() const {
-    cout << file << "(" << line << "): " << endl;
-    cout << what << endl;
+    cout << file << "(" << line << "):" << endl;
+    cout << "    Exception: " << what << endl;
 }
 
 void ResultTestRuntimeError::printToHtml(std::ofstream* out) const {
@@ -158,7 +158,7 @@ void ResultTestRuntimeError::printToHtml(std::ofstream* out) const {
     (*out) << "(" << line << "): " << "</td>" << endl;
     (*out) << "      </tr>" << endl;
     (*out) << "      <tr>" << endl;
-    (*out) << "        <td>" << what << "</td>" << endl;
+    (*out) << "        <td>" << "Exception: " << what << "</td>" << endl;
     (*out) << "      </tr>" << endl;
 }
 
@@ -183,7 +183,7 @@ void ResultTestFailed::printToHtml(ofstream* out) const {
     (*out) << "      <tr class='code_line'>" << endl;
     (*out) << "        <td colspan='2'>" << endl;
     (*out) << "          <a href='" << file << "'>" << file << "</a>";
-    (*out) << "(" << line << "): " << expression << "</td>" << endl;
+    (*out) << "(" << line << "):" << expression << "</td>" << endl;
     (*out) << "      </tr>" << endl;
     (*out) << "      <tr>" << endl;
     (*out) << "        <td class='text_expect'>Expect: </td>" << endl;
@@ -305,9 +305,9 @@ void ResultPercentage::print() const {
         char buf[8];
         snprintf(buf, sizeof(buf), "%d", percentage);
         color(&cout, TextColor::RED, buf);
-        color(&cout, TextColor::RED, "% =] ");
+        color(&cout, TextColor::RED, "% =]");
         cout << endl;
-        cout << passed << " / " << total << " test cases passed. " << endl;
+        cout << passed << " / " << total << " test cases passed." << endl;
     }
 }
 
