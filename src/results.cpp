@@ -106,7 +106,7 @@ void ResultList::printToHtml(ofstream* out) const {
     (*out) << "</html>" << endl;
 }
 
-ResultSuiteBegin::ResultSuiteBegin(const std::string& _title) :
+ResultSuiteBegin::ResultSuiteBegin(const string& _title) :
     title(_title) {
 }
 
@@ -139,9 +139,28 @@ void ResultSuiteEnd::printToHtml(std::ofstream* out) const {
     (*out) << "      <tr><td>&nbsp;</td></tr>" << endl;
 }
 
-ResultTestRuntimeError::ResultTestRuntimeError(const std::string& _file,
+ResultTestOutput::ResultTestOutput(const string& _type,
+                                   const string& _output) :
+    type(_type), output(_output) {}
+ResultTestOutput::~ResultTestOutput() {}
+
+void ResultTestOutput::print() const {
+    cout << "Standard " << type << ":" << endl;
+    cout << output << endl;
+}
+
+void ResultTestOutput::printToHtml(std::ofstream* out) const {
+    (*out) << "      <tr>" << endl;
+    (*out) << "        <td>" << "Standard: " << type << ":</td>" << endl;
+    (*out) << "      </tr>" << endl;
+    (*out) << "      <tr>" << endl;
+    (*out) << "        <td><pre>" << output << "</pre></td>" << endl;
+    (*out) << "      </tr>" << endl;
+}
+
+ResultTestRuntimeError::ResultTestRuntimeError(const string& _file,
                                                int _line,
-                                               const std::string& _what) :
+                                               const string& _what) :
     file(_file), line(_line), what(_what) {}
 
 ResultTestRuntimeError::~ResultTestRuntimeError() {}
@@ -162,10 +181,10 @@ void ResultTestRuntimeError::printToHtml(std::ofstream* out) const {
     (*out) << "      </tr>" << endl;
 }
 
-ResultTestFailed::ResultTestFailed(const std::string& _file, int _line,
-                                   const std::string& _expression,
-                                   const std::string& _expect,
-                                   const std::string& _actual) :
+ResultTestFailed::ResultTestFailed(const string& _file, int _line,
+                                   const string& _expression,
+                                   const string& _expect,
+                                   const string& _actual) :
     file(_file), line(_line), expression(_expression),
     expect(_expect), actual(_actual) {
 }
@@ -196,9 +215,9 @@ void ResultTestFailed::printToHtml(ofstream* out) const {
 }
 
 ResultTestFailedVariables::ResultTestFailedVariables(
-    const std::string& _file,
+    const string& _file,
     int _line,
-    const std::string& _expression) :
+    const string& _expression) :
     file(_file), line(_line), expression(_expression),
     names(), values() {
 }
@@ -206,8 +225,8 @@ ResultTestFailedVariables::ResultTestFailedVariables(
 ResultTestFailedVariables::~ResultTestFailedVariables() {
 }
 
-void ResultTestFailedVariables::addParameter(const std::string& name,
-                                             const std::string& value) {
+void ResultTestFailedVariables::addParameter(const string& name,
+                                             const string& value) {
     this->names.push_back(name);
     this->values.push_back(value);
 }
@@ -249,7 +268,7 @@ void ResultCaseBegin::print() const {
 void ResultCaseBegin::printToHtml(std::ofstream*) const {
 }
 
-ResultCaseEnd::ResultCaseEnd(const std::string& _caseName, bool _passed) :
+ResultCaseEnd::ResultCaseEnd(const string& _caseName, bool _passed) :
     caseName(_caseName), passed(_passed) {
 }
 

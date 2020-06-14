@@ -1,0 +1,10 @@
+[========] TestOutput
+Standard output:
+All work and no play
+[ PASSED ] test_standard_output
+Standard error:
+Makes Jack a dull boy
+[ PASSED ] test_standard_error
+[= 100% =] Passed all 2 test cases.
+
+[= 100% =] Passed all 2 test cases.

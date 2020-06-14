@@ -71,6 +71,19 @@ class ResultSuiteEnd : public Result {
     void printToHtml(std::ofstream* out) const final;
 };
 
+class ResultTestOutput : public Result {
+ public:
+    ResultTestOutput(const std::string& type, const std::string& output);
+    virtual ~ResultTestOutput();
+
+    void print() const final;
+    void printToHtml(std::ofstream* out) const final;
+
+ private:
+    std::string type;
+    std::string output;
+};
+
 class ResultTestRuntimeError : public Result {
  public:
     ResultTestRuntimeError(const std::string& file, int line,

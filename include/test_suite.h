@@ -23,6 +23,7 @@ SOFTWARE. */
 #include <vector>
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <memory>
 #include <utility>
 #include "results.h"
@@ -83,6 +84,11 @@ class TestSuiteSpecialize : public TestSuite {
         for (auto testCase : testCases) {
             framework->appendResult(std::shared_ptr<Result>
                                     (new ResultCaseBegin()));
+            std::streambuf* oldOutBuf = std::cout.rdbuf();
+            std::streambuf* oldErrBuf = std::cerr.rdbuf();
+            std::ostringstream strOut, strErr;
+            std::cout.rdbuf(strOut.rdbuf());
+            std::cerr.rdbuf(strErr.rdbuf());
             UnitTest* test = testCase.second->newTest();
             *dynamic_cast<UnitTestClass*>(test) = base;
             framework->resetFailedFlag();
@@ -99,6 +105,24 @@ class TestSuiteSpecialize : public TestSuite {
                                            e.what())));
             }
             delete test;
+            std::cout.rdbuf(oldOutBuf);
+            std::cerr.rdbuf(oldErrBuf);
+            std::string testOut = strOut.str();
+            std::string testErr = strErr.str();
+            if (testOut.length() > 0) {
+                if (testOut.back() == '\n') {
+                    testOut.pop_back();
+                }
+                framework->appendResult(std::shared_ptr<Result>(new
+                    ResultTestOutput("output", testOut)));
+            }
+            if (testErr.length() > 0) {
+                if (testErr.back() == '\n') {
+                    testErr.pop_back();
+                }
+                framework->appendResult(std::shared_ptr<Result>(new
+                    ResultTestOutput("error", testErr)));
+            }
             if (!framework->isTestFailed()) {
                 ++testPassedNum;
             }
