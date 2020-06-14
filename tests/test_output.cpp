@@ -32,6 +32,11 @@ __TEST_U(TestOutput, test_standard_error) {
     std::cerr << "Makes Jack a dull boy" << std::endl;
 }
 
+__TEST_U(TestOutput, test_standard_output_and_error) {
+    std::cout << "All work and no play" << std::endl;
+    std::cerr << "Makes Jack a dull boy" << std::endl;
+}
+
 }  // namespace test
 
 using test::Framework;

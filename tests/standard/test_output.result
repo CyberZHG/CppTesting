@@ -5,6 +5,11 @@ All work and no play
 Standard error:
 Makes Jack a dull boy
 [ PASSED ] test_standard_error
-[= 100% =] Passed all 2 test cases.
+Standard output:
+All work and no play
+Standard error:
+Makes Jack a dull boy
+[ PASSED ] test_standard_output_and_error
+[= 100% =] Passed all 3 test cases.
 
-[= 100% =] Passed all 2 test cases.
+[= 100% =] Passed all 3 test cases.

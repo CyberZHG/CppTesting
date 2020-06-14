@@ -11,6 +11,6 @@ addons:
   homebrew:
     packages: lcov
 install:
-  - pip install --user cpplint
+  - python -m pip install --user cpplint
 before_scirpt: ./lint.sh
 script: cd tests && ./test.sh
