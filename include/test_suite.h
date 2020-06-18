@@ -126,8 +126,11 @@ class TestSuiteSpecialize : public TestSuite {
             if (!framework->isTestFailed()) {
                 ++testPassedNum;
             }
-            framework->appendResult(std::shared_ptr<Result>(new
-                ResultCaseEnd(testCase.first, !framework->isTestFailed())));
+            if (framework->isShowPassed() ||
+                testOut.length() > 0 || testErr.length() > 0) {
+                framework->appendResult(std::shared_ptr<Result>(new
+                    ResultCaseEnd(testCase.first, !framework->isTestFailed())));
+            }
         }
         try {
             base.tearDown();

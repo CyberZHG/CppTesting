@@ -1,4 +1,4 @@
-/* Copyright 2019 Zhao HG
+/* Copyright 2020 Zhao HG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@ Framework::Framework() :
     testIndex(),
     resultList(new ResultList()),
     failedFlag(false),
+    showPassed(true),
     totalPassed(0),
     totalCount(0) {
 }
@@ -145,6 +146,10 @@ int Framework::getTotalCount() const {
 
 bool Framework::isAllPassed() const {
     return this->totalPassed == this->totalCount;
+}
+
+bool Framework::isShowPassed() const {
+    return this->showPassed;
 }
 
 }  // namespace test

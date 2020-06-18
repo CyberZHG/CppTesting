@@ -1,4 +1,4 @@
-/* Copyright 2019 Zhao HG
+/* Copyright 2020 Zhao HG
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,7 @@ class Framework {
     void setFailedFlag();
     void resetFailedFlag();
     bool isTestFailed() const;
+    bool isShowPassed() const;
 
     int getTotalPassed() const;
     int getTotalCount() const;
@@ -69,6 +70,7 @@ class Framework {
     ResultList* resultList;
 
     bool failedFlag;
+    bool showPassed;
     int totalPassed;
     int totalCount;
 };
