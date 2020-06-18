@@ -126,7 +126,7 @@ class TestSuiteSpecialize : public TestSuite {
             if (!framework->isTestFailed()) {
                 ++testPassedNum;
             }
-            if (framework->isShowPassed() ||
+            if (framework->isShowPassed() || framework->isTestFailed() ||
                 testOut.length() > 0 || testErr.length() > 0) {
                 framework->appendResult(std::shared_ptr<Result>(new
                     ResultCaseEnd(testCase.first, !framework->isTestFailed())));
