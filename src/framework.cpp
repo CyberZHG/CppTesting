@@ -148,6 +148,10 @@ bool Framework::isAllPassed() const {
     return this->totalPassed == this->totalCount;
 }
 
+void Framework::hidePassed() {
+    this->showPassed = false;
+}
+
 bool Framework::isShowPassed() const {
     return this->showPassed;
 }

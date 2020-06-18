@@ -56,6 +56,7 @@ class Framework {
     void setFailedFlag();
     void resetFailedFlag();
     bool isTestFailed() const;
+    void hidePassed();
     bool isShowPassed() const;
 
     int getTotalPassed() const;
